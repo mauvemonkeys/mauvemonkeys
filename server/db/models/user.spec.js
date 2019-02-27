@@ -27,9 +27,8 @@ describe('User model', () => {
         expect(cody.lastName).to.be.equal('Super')
       })
 
-      it('should have an email and password', () => {
+      it('should have an email', () => {
         expect(cody.email).to.be.equal('cody@puppybook.com')
-        expect(cody.password).to.be.equal('bones')
       })
     })
   })

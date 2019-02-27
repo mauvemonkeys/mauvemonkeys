@@ -37,7 +37,12 @@ describe('User routes', () => {
 
       expect(res.body).to.be.an('object')
       expect(res.body.email).to.be.equal(Henry.email)
-      expect(res.body).to.deep.include(Henry)
+      expect(res.body).to.deep.include({
+        email: 'HenryGod@gmail.com',
+        firstName: 'Henry',
+        lastName: 'God',
+        phone: 66612357
+      })
     })
 
     it('PUT /api/users/:id/edit', async () => {
@@ -55,7 +60,12 @@ describe('User routes', () => {
 
       expect(res.body).to.be.an('object')
       expect(res.body.email).to.be.equal(updateInfo.email)
-      expect(res.body).to.deep.include(updateInfo)
+      expect(res.body).to.deep.include({
+        email: 'gut@gmail.com',
+        firstName: 'Chao',
+        lastName: 'Dog',
+        phone: 888888888
+      })
     })
 
     it('POST /api/users', async () => {
@@ -73,7 +83,12 @@ describe('User routes', () => {
 
       expect(res.body).to.be.an('object')
       expect(res.body.email).to.be.equal(newUser.email)
-      expect(res.body).to.deep.include(newUser)
+      expect(res.body).to.deep.include({
+        email: 'boss@gmail.com',
+        firstName: 'Dog',
+        lastName: 'Chao',
+        phone: 99999999
+      })
     })
   })
 })
