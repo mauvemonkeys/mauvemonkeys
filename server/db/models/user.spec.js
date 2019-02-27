@@ -4,29 +4,33 @@ const {expect} = require('chai')
 const db = require('../index')
 const User = db.model('user')
 
-// describe('User model', () => {
-//   beforeEach(() => {
-//     return db.sync({force: true})
-//   })
+describe('User model', () => {
+  beforeEach(() => {
+    return db.sync({force: true})
+  })
 
-//   describe('instanceMethods', () => {
-//     describe('correctPassword', () => {
-//       let cody
+  describe('User model', () => {
+    describe('correctNewUser', () => {
+      let cody
 
-//       beforeEach(async () => {
-//         cody = await User.create({
-//           email: 'cody@puppybook.com',
-//           password: 'bones'
-//         })
-//       })
+      beforeEach(async () => {
+        cody = await User.create({
+          firstName: 'Cody',
+          lastName: 'Super',
+          email: 'cody@puppybook.com',
+          password: 'bones'
+        })
+      })
 
-//       it('returns true if the password is correct', () => {
-//         expect(cody.correctPassword('bones')).to.be.equal(true)
-//       })
+      it('should create a user called Cody Super', () => {
+        expect(cody.firstName).to.be.equal('Cody')
+        expect(cody.lastName).to.be.equal('Super')
+      })
 
-//       it('returns false if the password is incorrect', () => {
-//         expect(cody.correctPassword('bonez')).to.be.equal(false)
-//       })
-//     }) // end describe('correctPassword')
-//   }) // end describe('instanceMethods')
-// }) // end describe('User model')
+      it('should have an email and password', () => {
+        expect(cody.email).to.be.equal('cody@puppybook.com')
+        expect(cody.password).to.be.equal('bones')
+      })
+    })
+  })
+})
