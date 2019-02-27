@@ -1,7 +1,13 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {
+  User,
+  Product,
+  Address,
+  CartHeader,
+  CartDetail
+} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -20,6 +26,77 @@ async function seed() {
       password: '123',
       firstName: 'cody',
       lastName: 'dog'
+    })
+  ])
+
+  const products = await Promise.all([
+    Product.create({
+      name: 'Netscape',
+      description: 'A really old, slow, monopolized browser',
+      imageUrl:
+        'https://vignette.wikia.nocookie.net/logopedia/images/2/24/Netscape_logo_1994.png/revision/latest?cb=20170823172309',
+      price: 50
+    }),
+    Product.create({
+      name: 'Geocities',
+      description:
+        'A place to host your homepage on the world wide web. ZOINKS!',
+      imageUrl:
+        'https://www.lifewire.com/thmb/Q6yIetcu-37r_B0aXu3P_X4nxWY=/640x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/geocities-57fa9de05f9b586c357e9734.jpg',
+      price: 10
+    }),
+    Product.create({
+      name: 'Angelfire',
+      description:
+        'A much cooler place to host your homepage on the world wide web. WOWZERS!',
+      imageUrl: 'https://cdn.worldvectorlogo.com/logos/angelfire.svg',
+      price: 25
+    }),
+    Product.create({
+      name: 'Internet Explorer',
+      description: 'The most forced way to access the world wide web',
+      imageUrl:
+        'https://vignette.wikia.nocookie.net/logopedia/images/0/03/Internet_Explorer_5_logo.png/revision/latest/scale-to-width-down/200?cb=20180319023708',
+      price: 15
+    })
+  ])
+
+  const address = await Promise.all([
+    Address.create({
+      streetAddress: '95 wall street',
+      city: 'New-York',
+      zip: 10005,
+      state: 'NY',
+      country: 'United State'
+    }),
+    Address.create({
+      streetAddress: '95 clark street',
+      city: 'Brooklyn',
+      zip: 10005,
+      state: 'NY',
+      country: 'United State'
+    })
+  ])
+
+  const cartHeaders = await Promise.all([
+    CartHeader.create({
+      userId: users[0].id
+    }),
+    CartHeader.create({
+      userId: users[1].id
+    })
+  ])
+
+  const cartDetails = await Promise.all([
+    CartDetail.create({
+      CartHeaderId: cartHeaders[0].id,
+      productId: products[3].id,
+      Quantity: 5
+    }),
+    CartDetail.create({
+      CartHeaderId: cartHeaders[1].id,
+      productId: products[2].id,
+      Quantity: 1
     })
   ])
 
