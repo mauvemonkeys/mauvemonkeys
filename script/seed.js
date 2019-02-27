@@ -78,6 +78,7 @@ async function seed() {
     })
   ])
 
+  /*
   const cartHeaders = await Promise.all([
     CartHeader.create({
       userId: users[0].id
@@ -99,6 +100,7 @@ async function seed() {
       Quantity: 1
     })
   ])
+  */
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
