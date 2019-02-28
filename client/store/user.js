@@ -1,6 +1,6 @@
 import axios from 'axios'
 import history from '../history'
-import {getCart, getCartLocal} from './'
+import {getCart, getCartLocal} from './cart'
 /**
  * ACTION TYPES
  */
