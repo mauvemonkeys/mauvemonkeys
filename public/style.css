@@ -1,5 +1,6 @@
 body {
   font-family: sans-serif;
+  text-align: center;
 }
 
 a {
@@ -18,4 +19,22 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+img {
+  height: 100px;
+  width: 155px;
+}
+
+#product-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.single-product-div {
+}
+
+.row-gap {
+  margin: 45px;
 }
