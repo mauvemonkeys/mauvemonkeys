@@ -81,11 +81,11 @@ export default function(state = defaultUser, action) {
     case UPDATE_USER:
       let updatedUser = {}
       for (let key in action.user) {
-        if (action.user[key] !== '') {
+        if (action.user[key] !== '' && action.user[key] !== 0) {
           updatedUser[key] = action.user[key]
         }
       }
-
+      console.log('========>', updatedUser)
       return {...state, ...updatedUser}
     default:
       return state

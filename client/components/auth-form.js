@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth, editUser} from '../store'
+import UserProfile from './userProfile'
 
 /**
  * COMPONENT
@@ -19,6 +20,8 @@ const AuthForm = props => {
 
   return (
     <div>
+      {isLoggedIn && !isSigningUp && <UserProfile />}
+
       <form onSubmit={handleSubmit} id={id} name={name}>
         {!isLoggedIn && !isSigningUp ? (
           <div>testing</div>
@@ -111,12 +114,12 @@ const mapDispatch = dispatch => {
       const formName = evt.target.name
       const email = evt.target.email.value
       const password = evt.target.password.value
-      const firstName = evt.target.firstName.value
-      const lastName = evt.target.lastName.value
-      const phone = +evt.target.phone.value
-      const id = evt.target.id
 
       if (formName === 'editUser') {
+        const firstName = evt.target.firstName.value
+        const lastName = evt.target.lastName.value
+        const phone = +evt.target.phone.value
+        const id = evt.target.id
         dispatch(editUser({firstName, lastName, email, password, id, phone}))
       } else {
         dispatch(auth(email, password, formName))
