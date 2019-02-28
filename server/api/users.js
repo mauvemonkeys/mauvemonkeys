@@ -11,16 +11,16 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
-router.put('/:id/edit', async (req, res, next) => {
-  try {
-    const user = await User.findById(req.params.id)
-    const updatedUser = await user.update(req.body)
-    await updatedUser.save()
-    res.json(updatedUser)
-  } catch (error) {
-    next(error)
-  }
-})
+// router.put('/:id/edit', async (req, res, next) => {
+//   try {
+//     const user = await User.findById(req.params.id)
+//     const updatedUser = await user.update(req.body)
+//     await updatedUser.save()
+//     res.json(updatedUser)
+//   } catch (error) {
+//     next(error)
+//   }
+// })
 
 router.post('/', async (req, res, next) => {
   try {
