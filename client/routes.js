@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import {
   Login,
   Signup,
+  EditUser,
   UserHome,
   ProductList,
   SingleProduct,
@@ -13,6 +14,7 @@ import {
 import {me, getCart, getCartLocal} from './store'
 import Product from './components/product'
 import axios from 'axios'
+
 
 /**
  * COMPONENT
@@ -42,6 +44,7 @@ class Routes extends Component {
             {/* Routes placed here are only available after logging in */}
             <Route path="/cart" component={Cart} />
             <Route path="/products/:productId" component={SingleProduct} />
+            <Route path="/edit" component={EditUser} />
             <Route component={ProductList} />
           </Switch>
         )}

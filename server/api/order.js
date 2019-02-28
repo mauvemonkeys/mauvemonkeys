@@ -51,6 +51,20 @@ router.put('/:userId/products/:productId', async (req, res, next) => {
   }
 })
 
+router.post('/:userId/product/:productId', async (req, res, next) => {
+  try {
+    console.log('========>', req.body)
+    const newOder = await Order.create({
+      productId: req.body.id,
+      userId: +req.params.userId,
+      itemQuantity: req.body.itemQuantity
+    })
+    res.sendStatus(200)
+  } catch (err) {
+    next(err)
+  }
+})
+
 // Product delete
 router.delete('/:userId/products/:productId', async (req, res, next) => {
   try {
