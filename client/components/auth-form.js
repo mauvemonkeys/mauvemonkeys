@@ -24,7 +24,7 @@ const AuthForm = props => {
 
       <form onSubmit={handleSubmit} id={id} name={name}>
         {!isLoggedIn && !isSigningUp ? (
-          <div>testing</div>
+          <div />
         ) : (
           <div>
             <div>
