@@ -8,15 +8,29 @@ import {
   EditUser,
   UserHome,
   ProductList,
-  SingleProduct
+  SingleProduct,
+  Cart
 } from './components'
-import {me} from './store'
+import {me, getCart, getCartLocal} from './store'
+import Product from './components/product'
+import axios from 'axios'
+
 
 /**
  * COMPONENT
  */
 class Routes extends Component {
   componentDidMount() {
+    console.log(localStorage.getItem('cart'))
+    if (!localStorage.getItem('cart')) {
+      localStorage.setItem(
+        'cart',
+        JSON.stringify([
+          {id: 1, productId: 1, itemQuantity: 4, orderStatus: false},
+          {id: 2, productId: 2, itemQuantity: 5, orderStatus: false}
+        ])
+      )
+    }
     this.props.loadInitialData()
   }
 
@@ -25,20 +39,24 @@ class Routes extends Component {
 
     return (
       <Switch>
+        {isLoggedIn && (
+          <Switch>
+            {/* Routes placed here are only available after logging in */}
+            <Route path="/cart" component={Cart} />
+            <Route path="/products/:productId" component={SingleProduct} />
+            <Route path="/edit" component={EditUser} />
+            <Route component={ProductList} />
+          </Switch>
+        )}
         {/* Routes placed here are available to all visitors */}
+        <Route path="/cart" component={Cart} />
         <Route exact path="/products" component={ProductList} />
         <Route path="/products/:productId" component={SingleProduct} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/edit" component={EditUser} />
-        {isLoggedIn && (
-          <Switch>
-            {/* Routes placed here are only available after logging in */}
-            <Route path="/home" component={UserHome} />
-          </Switch>
-        )}
+
         {/* Displays our Login component as a fallback */}
-        <Route component={Login} />
+        <Route component={ProductList} />
       </Switch>
     )
   }
@@ -55,10 +73,11 @@ const mapState = state => {
   }
 }
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch, ownProps) => {
   return {
-    loadInitialData() {
-      dispatch(me())
+    async loadInitialData() {
+      await dispatch(me())
+      ownProps.isLoggedIn ? dispatch(getCart()) : dispatch(getCartLocal())
     }
   }
 }

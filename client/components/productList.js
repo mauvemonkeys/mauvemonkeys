@@ -3,6 +3,8 @@ import axios from 'axios'
 import Product from './product'
 
 export default class ProductList extends Component {
+  _isMounted = false
+
   constructor() {
     super()
     this.state = {
@@ -13,8 +15,11 @@ export default class ProductList extends Component {
   }
 
   async componentDidMount() {
+    this._isMounted = true
     const {data: products} = await axios.get('/api/products')
-    this.setState({products})
+    if (this._isMounted) {
+      this.setState({products})
+    }
   }
 
   handleClick(productId) {
@@ -29,5 +34,9 @@ export default class ProductList extends Component {
         ))}
       </div>
     )
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false
   }
 }

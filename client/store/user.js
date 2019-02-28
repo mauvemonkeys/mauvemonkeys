@@ -1,6 +1,6 @@
 import axios from 'axios'
 import history from '../history'
-import {userInfo} from 'os'
+import {getCart, getCartLocal} from './cart'
 
 /**
  * ACTION TYPES
@@ -27,7 +27,7 @@ const updateUser = user => ({type: UPDATE_USER, user})
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
-    dispatch(getUser(res.data || defaultUser))
+    await dispatch(getUser(res.data || defaultUser))
   } catch (err) {
     console.error(err)
   }
@@ -42,8 +42,9 @@ export const auth = (email, password, method) => async dispatch => {
   }
 
   try {
-    dispatch(getUser(res.data))
-    history.push('/home')
+    await dispatch(getUser(res.data))
+    await dispatch(getCart())
+    history.push('/products')
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr)
   }
@@ -53,7 +54,8 @@ export const logout = () => async dispatch => {
   try {
     await axios.post('/auth/logout')
     dispatch(removeUser())
-    history.push('/login')
+    dispatch(getCartLocal())
+    history.push('/products')
   } catch (err) {
     console.error(err)
   }
