@@ -26,7 +26,7 @@ router.get('/:userId', async (req, res, next) => {
 })
 
 // Product detail and or update quantity in cart
-router.put('/:userId/product/:productId', async (req, res, next) => {
+router.put('/:userId/products/:productId', async (req, res, next) => {
   try {
     const result = await Order.findOrCreate({
       where: {
@@ -42,12 +42,8 @@ router.put('/:userId/product/:productId', async (req, res, next) => {
     const created = result[1]
 
     if (!created) {
-      const updatedResult = await Order.update(
-        {itemQuantity: req.body.itemQuantity},
-        {returning: true, where: {id: orderLine.id}}
-      )
-
-      orderLine = updatedResult[1][0]
+      orderLine.itemQuantity = req.body.itemQuantity
+      orderLine = await orderLine.save()
     }
     res.status(created ? 201 : 200).send(orderLine)
   } catch (err) {
@@ -56,7 +52,7 @@ router.put('/:userId/product/:productId', async (req, res, next) => {
 })
 
 // Product delete
-router.delete('/:userId/product/:productId', async (req, res, next) => {
+router.delete('/:userId/products/:productId', async (req, res, next) => {
   try {
     await Order.destroy({
       where: {

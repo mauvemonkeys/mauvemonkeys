@@ -2,8 +2,6 @@ const router = require('express').Router()
 module.exports = router
 
 const loggedIn = (req, res, next) => {
-  console.log('loggedIn')
-  console.log(req.user.id)
   if (!req.user) {
     let err = new Error('Forbidden')
     err.status = 403
