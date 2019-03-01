@@ -6,22 +6,17 @@ import {
   Login,
   Signup,
   EditUser,
-  UserHome,
   ProductList,
   SingleProduct,
   Cart
 } from './components'
 import {me, getCart, getCartLocal} from './store'
-import Product from './components/product'
-import axios from 'axios'
 
-
-/**
+/**`
  * COMPONENT
  */
 class Routes extends Component {
-  componentDidMount() {
-    console.log(localStorage.getItem('cart'))
+  async componentDidMount() {
     if (!localStorage.getItem('cart')) {
       localStorage.setItem(
         'cart',
@@ -31,12 +26,13 @@ class Routes extends Component {
         ])
       )
     }
-    this.props.loadInitialData()
+
+    await this.props.me()
+    this.props.isLoggedIn ? this.props.getCart() : this.props.getCartLocal()
   }
 
   render() {
     const {isLoggedIn} = this.props
-
     return (
       <Switch>
         {isLoggedIn && (
@@ -73,23 +69,16 @@ const mapState = state => {
   }
 }
 
-const mapDispatch = (dispatch, ownProps) => {
-  return {
-    async loadInitialData() {
-      await dispatch(me())
-      ownProps.isLoggedIn ? dispatch(getCart()) : dispatch(getCartLocal())
-    }
-  }
-}
-
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes
-export default withRouter(connect(mapState, mapDispatch)(Routes))
+export default withRouter(
+  connect(mapState, {me, getCart, getCartLocal})(Routes)
+)
 
 /**
  * PROP TYPES
  */
 Routes.propTypes = {
-  loadInitialData: PropTypes.func.isRequired,
+  //loadInitialData: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired
 }

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import history from '../history'
-import {getCart, getCartLocal} from './cart'
+import {getCart, getCartLocal, setCart} from './cart'
 
 /**
  * ACTION TYPES
@@ -27,23 +27,41 @@ const updateUser = user => ({type: UPDATE_USER, user})
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
-    await dispatch(getUser(res.data || defaultUser))
+    const user = res.data
+    return dispatch(getUser(user || defaultUser))
   } catch (err) {
     console.error(err)
   }
 }
 
-export const auth = (email, password, method) => async dispatch => {
+export const auth = (
+  email,
+  password,
+  method,
+  firstName,
+  lastName,
+  phone
+) => async dispatch => {
   let res
   try {
-    res = await axios.post(`/auth/${method}`, {email, password})
+    res = await axios.post(`/auth/${method}`, {
+      email,
+      password,
+      firstName,
+      lastName,
+      phone
+    })
   } catch (authError) {
     return dispatch(getUser({error: authError}))
   }
 
   try {
     await dispatch(getUser(res.data))
-    await dispatch(getCart())
+    if (method === 'signup') {
+      dispatch(setCart())
+    } else if (method === 'login') {
+      dispatch(getCart())
+    }
     history.push('/products')
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr)

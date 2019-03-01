@@ -1,12 +1,13 @@
 import React, {Component} from 'react'
 import axios from 'axios'
+import {connect} from 'react-redux'
+import {updateItemQuantity} from '../store'
 
-export default class SingleProduct extends Component {
+class SingleProduct extends Component {
   constructor() {
     super()
     this.state = {
       product: {},
-      user: {},
       itemQuantity: 1
     }
 
@@ -19,22 +20,16 @@ export default class SingleProduct extends Component {
   async componentDidMount() {
     const productId = this.props.match.params.productId
     const {data: product} = await axios.get(`/api/products/${productId}`)
-    const {data: user} = await axios.get('/auth/me')
-    this.setState({product, user})
+    this.setState({product})
   }
 
-  async handleSubmit(evt) {
+  handleSubmit(evt) {
     evt.preventDefault()
-    console.log('clicked')
-    const productId = this.props.match.params.productId
-    const userId = this.state.user.id
-    // console.log('+++==========>', this.state.product, '====', productId, '===userId', userId)
-    const newOrder = {
-      ...this.state.product,
-      itemQuantity: this.state.itemQuantity
-    }
-
-    await axios.post(`/api/orders/${userId}/product/${productId}`, newOrder)
+    this.props.updateItemQuantity(
+      Number(this.props.match.params.productId),
+      this.state.itemQuantity,
+      'product'
+    )
   }
 
   handleChange(evt) {
@@ -72,8 +67,12 @@ export default class SingleProduct extends Component {
         <div className="row-gap">${price}</div>
         <div className="row-gap">{description}</div>
         <div>{this.state.itemQuantity}</div>
-        <button onClick={() => this.decrement()}>-</button>
-        <button onClick={() => this.increment()}>+</button>
+        <button type="button" onClick={() => this.decrement()}>
+          -
+        </button>
+        <button type="button" onClick={() => this.increment()}>
+          +
+        </button>
         <br />
         <button type="submit" onClick={this.handleSubmit}>
           Add to cart
@@ -82,3 +81,5 @@ export default class SingleProduct extends Component {
     )
   }
 }
+
+export default connect(null, {updateItemQuantity})(SingleProduct)

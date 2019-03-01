@@ -6,6 +6,7 @@ import history from '../history'
  */
 const GOT_CART = 'GOT_CART'
 const GOT_UPDATED_CART_LINE = 'GOT_UPDATED_CART_LINE'
+const GOT_NEW_CART_LINE = 'GOT_NEW_CART_LINE'
 const DELETED_CART_ITEM = 'DELETED_CART_ITEM'
 const CLEAR_CART = 'CLEAR_CART'
 /**
@@ -22,11 +23,26 @@ const deletedCartItem = productId => ({
   type: DELETED_CART_ITEM,
   productId
 })
+const gotNewCartLine = cartLine => ({type: GOT_NEW_CART_LINE, cartLine})
 
 export const clearCart = () => ({type: CLEAR_CART})
 /**
  * THUNK CREATORS
  */
+
+export const setCart = () => async (dispatch, getState) => {
+  try {
+    const userId = getState().user.id
+    const res = await axios.post(`/api/orders/${userId}`, {
+      cart: getState().cart
+    })
+    const cart = res.data
+    dispatch(gotCart(cart))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 export const getCart = () => async (dispatch, getState) => {
   try {
     const userId = getState().user.id
@@ -54,17 +70,25 @@ export const getCartLocal = () => async dispatch => {
   dispatch(gotCart(updatedLocalCart))
 }
 
-export const updateItemQuantity = (productId, itemQuantity) => async (
+export const updateItemQuantity = (productId, itemQuantity, from) => async (
   dispatch,
   getState
 ) => {
   try {
     const userId = getState().user.id
-    const res = await axios.put(`/api/orders/${userId}/products/${productId}`, {
-      itemQuantity
-    })
-    const cartLine = res.data
-    dispatch(gotUpdatedCartLine(cartLine))
+    const res = await axios.put(
+      `/api/orders/${userId}/products/${productId}/${from}`,
+      {
+        itemQuantity
+      }
+    )
+    const {created, orderLine: cartLine} = res.data
+
+    if (created) {
+      dispatch(gotNewCartLine(cartLine))
+    } else {
+      dispatch(gotUpdatedCartLine(cartLine))
+    }
   } catch (err) {
     console.error(err)
   }
@@ -118,6 +142,8 @@ export default function(state = defaultCart, action) {
           ? action.cartLine
           : {...cartLine}
       })
+    case GOT_NEW_CART_LINE:
+      return [...state, action.cartLine]
     case DELETED_CART_ITEM:
       state = state.filter(cartLine => {
         return cartLine.product.id !== action.productId

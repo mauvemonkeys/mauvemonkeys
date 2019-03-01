@@ -121,6 +121,11 @@ const mapDispatch = dispatch => {
         const phone = +evt.target.phone.value
         const id = evt.target.id
         dispatch(editUser({firstName, lastName, email, password, id, phone}))
+      } else if (formName === 'signup') {
+        const firstName = evt.target.firstName.value
+        const lastName = evt.target.lastName.value
+        const phone = +evt.target.phone.value
+        dispatch(auth(email, password, formName, firstName, lastName, phone))
       } else {
         dispatch(auth(email, password, formName))
       }
