@@ -56,6 +56,7 @@ export const auth = (
   }
 
   try {
+    res.data.phone = res.data.phone || ''
     await dispatch(getUser(res.data))
     if (method === 'signup') {
       dispatch(setCart())
@@ -79,11 +80,22 @@ export const logout = () => async dispatch => {
   }
 }
 
-export const editUser = userInfo => async dispatch => {
+export const editUser = ({
+  email,
+  password,
+  firstName,
+  lastName,
+  phone
+}) => async (dispatch, getState) => {
   try {
-    await axios.put('/auth/editUser', userInfo)
+    const id = getState().user.id
+    const userInfo = {email, password, firstName, lastName, phone}
+    if (!password.trim()) {
+      userInfo.password = password
+    }
+    await axios.put(`api/users/${id}/edit`, userInfo)
     dispatch(updateUser(userInfo))
-    history.push('/home')
+    history.push('/profile')
   } catch (err) {
     console.error(err)
   }

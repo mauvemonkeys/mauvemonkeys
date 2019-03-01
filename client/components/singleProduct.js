@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import axios from 'axios'
 import {connect} from 'react-redux'
 import {updateItemQuantity, updateItemQuantityLocal} from '../store'
-
 class SingleProduct extends Component {
   constructor() {
     super()

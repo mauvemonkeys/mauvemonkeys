@@ -1,73 +1,132 @@
-import React from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth, editUser} from '../store'
-import UserProfile from './userProfile'
 
 /**
  * COMPONENT
  */
-const AuthForm = props => {
-  const {
-    id,
-    name,
-    displayName,
-    handleSubmit,
-    error,
-    isLoggedIn,
-    isSigningUp
-  } = props
+class AuthForm extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      firstName: '',
+      lastName: '',
+      phone: '',
+      email: '',
+      password: ''
+    }
 
-  return (
-    <div>
-      {isLoggedIn && !isSigningUp && <UserProfile />}
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
 
-      <form onSubmit={handleSubmit} id={id} name={name}>
-        {!isLoggedIn && !isSigningUp ? (
-          <div />
-        ) : (
+  componentDidMount() {
+    if (this.props.name === 'editUser') {
+      this.setState({
+        firstName: this.props.user.firstName || '',
+        lastName: this.props.user.lastName || '',
+        phone: this.props.user.phone || '',
+        email: this.props.user.email || ''
+      })
+    }
+  }
+
+  handleChange(evt) {
+    this.setState({[evt.target.name]: evt.target.value})
+  }
+
+  handleSubmit(evt) {
+    evt.preventDefault()
+    const formName = this.props.name
+    const {firstName, lastName, phone, email, password} = this.state
+    if (formName === 'editUser') {
+      this.props.editUser({firstName, lastName, email, password, phone})
+    } else if (formName === 'signup') {
+      this.props.auth(email, password, formName, firstName, lastName, phone)
+    } else {
+      this.props.auth(email, password, formName)
+    }
+  }
+
+  // eslint-disable-next-line complexity
+  render() {
+    const {name, headerText, buttonText, error, isLoggedIn} = this.props
+    const {firstName, lastName, phone, email, password} = this.state
+    return (
+      <div>
+        <h3>{headerText}</h3>
+        <form onSubmit={this.handleSubmit}>
+          {['signup', 'editUser'].includes(name) && (
+            <div>
+              <div>
+                <label htmlFor="firstName">
+                  <small>First Name</small>
+                </label>
+                <input
+                  name="firstName"
+                  type="text"
+                  value={firstName}
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div>
+                <label htmlFor="lastName">
+                  <small>Last Name</small>
+                </label>
+                <input
+                  name="lastName"
+                  type="text"
+                  value={lastName}
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div>
+                <label htmlFor="phone">
+                  <small>Phone</small>
+                </label>
+                <input
+                  name="phone"
+                  type="text"
+                  placeholder="(xxx) xxx-xxxx"
+                  pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}"
+                  value={phone}
+                  onChange={this.handleChange}
+                />
+              </div>
+            </div>
+          )}
           <div>
-            <div>
-              <label htmlFor="firstName">
-                <small>First Name</small>
-              </label>
-              <input name="firstName" type="text" />
-            </div>
-            <div>
-              <label htmlFor="lastName">
-                <small>Last Name</small>
-              </label>
-              <input name="lastName" type="text" />
-            </div>
-            <div>
-              <label htmlFor="phone">
-                <small>Phone</small>
-              </label>
-              <input name="phone" type="text" pattern="[0-9]*" />
-            </div>
+            <label htmlFor="email">
+              <small>Email</small>
+            </label>
+            <input
+              name="email"
+              type="text"
+              value={email}
+              onChange={this.handleChange}
+            />
           </div>
-        )}
-
-        <div>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" />
-        </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form>
-      {!isLoggedIn && <a href="/auth/google">{displayName} with Google</a>}
-    </div>
-  )
+          <div>
+            <label htmlFor="password">
+              <small>Password</small>
+            </label>
+            <input
+              name="password"
+              type="password"
+              value={password}
+              onChange={this.handleChange}
+            />
+          </div>
+          <div>
+            <button type="submit">{buttonText}</button>
+          </div>
+          {error && error.response && <div> {error.response.data} </div>}
+        </form>
+        {!isLoggedIn && <a href="/auth/google">{headerText} with Google</a>}
+      </div>
+    )
+  }
 }
 
 /**
@@ -81,7 +140,8 @@ const mapLogin = state => {
   return {
     isLoggedIn: !!state.user.id,
     name: 'login',
-    displayName: 'Login',
+    headerText: 'Login',
+    buttonText: 'Login',
     error: state.user.error
   }
 }
@@ -89,9 +149,9 @@ const mapLogin = state => {
 const mapSignup = state => {
   return {
     isLoggedIn: !!state.user.id,
-    isSigningUp: true,
     name: 'signup',
-    displayName: 'Sign Up',
+    headerText: 'Sign Up',
+    buttonText: 'Submit',
     error: state.user.error
   }
 }
@@ -99,50 +159,23 @@ const mapSignup = state => {
 const mapEditUser = state => {
   return {
     isLoggedIn: !!state.user.id,
-    isSigningUp: false,
+    user: state.user,
     name: 'editUser',
-    displayName: 'Edit User',
+    headerText: 'Update Profile',
+    buttonText: 'Submit',
     error: state.user.error,
     id: state.user.id
   }
 }
 
-const mapDispatch = dispatch => {
-  return {
-    handleSubmit(evt) {
-      evt.preventDefault()
-      const formName = evt.target.name
-      const email = evt.target.email.value
-      const password = evt.target.password.value
-
-      if (formName === 'editUser') {
-        const firstName = evt.target.firstName.value
-        const lastName = evt.target.lastName.value
-        const phone = +evt.target.phone.value
-        const id = evt.target.id
-        dispatch(editUser({firstName, lastName, email, password, id, phone}))
-      } else if (formName === 'signup') {
-        const firstName = evt.target.firstName.value
-        const lastName = evt.target.lastName.value
-        const phone = +evt.target.phone.value
-        dispatch(auth(email, password, formName, firstName, lastName, phone))
-      } else {
-        dispatch(auth(email, password, formName))
-      }
-    }
-  }
-}
-
-export const Login = connect(mapLogin, mapDispatch)(AuthForm)
-export const Signup = connect(mapSignup, mapDispatch)(AuthForm)
-export const EditUser = connect(mapEditUser, mapDispatch)(AuthForm)
+export const Login = connect(mapLogin, {auth})(AuthForm)
+export const Signup = connect(mapSignup, {auth})(AuthForm)
+export const EditUser = connect(mapEditUser, {editUser})(AuthForm)
 
 /**
  * PROP TYPES
  */
 AuthForm.propTypes = {
   name: PropTypes.string.isRequired,
-  displayName: PropTypes.string.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
   error: PropTypes.object
 }
