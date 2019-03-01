@@ -94,20 +94,55 @@ export const updateItemQuantity = (productId, itemQuantity, from) => async (
   }
 }
 
-export const updateItemQuantityLocal = (productId, itemQuantity) => (
-  dispatch,
-  getState
-) => {
-  const cartLine = getState().cart.find(cl => cl.productId === productId)
-  const updatedCartLine = {...cartLine, itemQuantity}
+export const updateItemQuantityLocal = (
+  productId,
+  itemQuantity,
+  from
+) => async (dispatch, getState) => {
+  const cart = getState().cart
+  const cartLine = cart.find(cl => cl.productId === productId)
+  let updatedCartLine = null
+  let updatedCartForLS = null
+  if (cartLine) {
+    if (from === 'product') {
+      updatedCartLine = {
+        ...cartLine,
+        itemQuantity: cartLine.itemQuantity + itemQuantity
+      }
+    } else if (from === 'cart') {
+      updatedCartLine = {...cartLine, itemQuantity}
+    }
 
-  const updatedCartForLS = getState().cart.map(cl => {
-    return cl.productId === productId ? updatedCartLine : {...cl}
-  })
+    updatedCartForLS = cart.map(cl => {
+      return cl.productId === productId ? updatedCartLine : {...cl}
+    })
 
-  localStorage.setItem('cart', JSON.stringify(updatedCartForLS))
+    dispatch(gotUpdatedCartLine(updatedCartLine))
 
-  dispatch(gotUpdatedCartLine(updatedCartLine))
+    localStorage.setItem('cart', JSON.stringify(updatedCartForLS))
+  } else {
+    const nextCartLineId = Number(localStorage.getItem('nextCartId'))
+
+    const newCartLine = {
+      id: nextCartLineId,
+      productId,
+      itemQuantity,
+      orderStatus: false
+    }
+
+    const res = await axios.get(`/api/products/${productId}`)
+    const product = res.data
+
+    const newCartLineWithProduct = {...newCartLine, product}
+
+    dispatch(gotNewCartLine(newCartLineWithProduct))
+
+    const newCartForLS = [...cart, newCartLineWithProduct]
+
+    localStorage.setItem('cart', JSON.stringify(newCartForLS))
+
+    localStorage.setItem('nextCartId', nextCartLineId + 1)
+  }
 }
 
 export const deleteItem = productId => async (dispatch, getState) => {

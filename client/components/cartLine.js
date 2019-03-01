@@ -29,7 +29,8 @@ class CartLine extends Component {
         )
       : this.props.updateItemQuantityLocal(
           this.props.cartLine.productId,
-          itemQuantity
+          itemQuantity,
+          'cart'
         )
   }
 

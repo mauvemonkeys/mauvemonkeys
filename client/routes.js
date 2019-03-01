@@ -25,6 +25,7 @@ class Routes extends Component {
           {id: 2, productId: 2, itemQuantity: 5, orderStatus: false}
         ])
       )
+      localStorage.setItem('nextCartId', 3)
     }
 
     await this.props.me()

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 import {connect} from 'react-redux'
-import {updateItemQuantity} from '../store'
+import {updateItemQuantity, updateItemQuantityLocal} from '../store'
 
 class SingleProduct extends Component {
   constructor() {
@@ -25,11 +25,19 @@ class SingleProduct extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault()
-    this.props.updateItemQuantity(
-      Number(this.props.match.params.productId),
-      this.state.itemQuantity,
-      'product'
-    )
+    if (this.props.isLoggedIn) {
+      this.props.updateItemQuantity(
+        Number(this.props.match.params.productId),
+        this.state.itemQuantity,
+        'product'
+      )
+    } else {
+      this.props.updateItemQuantityLocal(
+        Number(this.props.match.params.productId),
+        this.state.itemQuantity,
+        'product'
+      )
+    }
   }
 
   handleChange(evt) {
@@ -82,4 +90,11 @@ class SingleProduct extends Component {
   }
 }
 
-export default connect(null, {updateItemQuantity})(SingleProduct)
+const mapStateToProps = ({user}) => ({
+  isLoggedIn: !!user.id
+})
+
+export default connect(mapStateToProps, {
+  updateItemQuantity,
+  updateItemQuantityLocal
+})(SingleProduct)
