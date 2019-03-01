@@ -1,16 +1,37 @@
+/*
+font-family: 'ZCOOL QingKe HuangYou', cursive;
+font-family: 'Fugaz One', cursive;
+font-family: 'Inconsolata', monospace;
+*/
+h1 {
+  font-family: 'Fugaz One', cursive;
+  font-size: 3em;
+  /* font-family: 'ZCOOL QingKe HuangYou', cursive; */
+}
+h3 {
+  font-family: 'Inconsolata', monospace;
+}
+h2 {
+  font-family: 'Inconsolata', monospace;
+}
 body {
-  font-family: sans-serif;
+  font-family: 'Inconsolata', sans-serif;
   text-align: center;
 }
 
 a {
   text-decoration: none;
+  font-family: 'Inconsolata', monospace;
 }
 
 label {
   display: block;
 }
 
+.navbar {
+  background-color: lightskyblue;
+  border-radius: 50px 20px;
+}
 nav a {
   display: inline-block;
   margin: 1em;
@@ -32,9 +53,16 @@ img {
   justify-content: space-around;
 }
 
-.single-product-div {
+.product-item {
+  padding-top: 5%;
+}
+ul {
+  list-style-type: none;
 }
 
 .row-gap {
   margin: 45px;
 }
+/* .cart-line h4 {
+  display: flex
+} */
