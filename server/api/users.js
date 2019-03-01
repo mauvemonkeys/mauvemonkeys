@@ -2,6 +2,15 @@ const router = require('express').Router()
 const {User} = require('../db/models')
 module.exports = router
 
+const verifyUser = (req, res, next) => {
+  if (req.params.id && (!req.user || Number(req.params.id) !== req.user.id)) {
+    let err = new Error('Forbidden')
+    err.status = 403
+    return next(err)
+  }
+  next()
+}
+
 router.get('/:id', async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id)
@@ -11,7 +20,7 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
-router.put('/:id/edit', async (req, res, next) => {
+router.put('/:id/edit', verifyUser, async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id)
     const updatedUser = await user.update(req.body)

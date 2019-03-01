@@ -38,27 +38,6 @@ router.post('/logout', (req, res) => {
   res.redirect('/')
 })
 
-router.put('/editUser', async (req, res, next) => {
-  try {
-    const user = await User.findById(req.body.id)
-
-    delete req.body.id
-
-    let newReqBody = {}
-    for (let key in req.body) {
-      if (req.body[key] !== '') {
-        newReqBody[key] = req.body[key]
-      }
-    }
-
-    const updatedUser = await user.update(newReqBody)
-    await updatedUser.save()
-    res.json(updatedUser)
-  } catch (error) {
-    next(error)
-  }
-})
-
 router.get('/me', (req, res) => {
   res.json(req.user)
 })
