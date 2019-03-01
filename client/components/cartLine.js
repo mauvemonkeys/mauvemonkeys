@@ -24,11 +24,13 @@ class CartLine extends Component {
     this.props.isLoggedIn
       ? this.props.updateItemQuantity(
           this.props.cartLine.product.id,
-          itemQuantity
+          itemQuantity,
+          'cart'
         )
       : this.props.updateItemQuantityLocal(
           this.props.cartLine.productId,
-          itemQuantity
+          itemQuantity,
+          'cart'
         )
   }
 

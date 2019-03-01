@@ -6,6 +6,7 @@ import history from '../history'
  */
 const GOT_CART = 'GOT_CART'
 const GOT_UPDATED_CART_LINE = 'GOT_UPDATED_CART_LINE'
+const GOT_NEW_CART_LINE = 'GOT_NEW_CART_LINE'
 const DELETED_CART_ITEM = 'DELETED_CART_ITEM'
 const CLEAR_CART = 'CLEAR_CART'
 /**
@@ -22,11 +23,26 @@ const deletedCartItem = productId => ({
   type: DELETED_CART_ITEM,
   productId
 })
+const gotNewCartLine = cartLine => ({type: GOT_NEW_CART_LINE, cartLine})
 
 export const clearCart = () => ({type: CLEAR_CART})
 /**
  * THUNK CREATORS
  */
+
+export const setCart = () => async (dispatch, getState) => {
+  try {
+    const userId = getState().user.id
+    const res = await axios.post(`/api/orders/${userId}`, {
+      cart: getState().cart
+    })
+    const cart = res.data
+    dispatch(gotCart(cart))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 export const getCart = () => async (dispatch, getState) => {
   try {
     const userId = getState().user.id
@@ -54,36 +70,79 @@ export const getCartLocal = () => async dispatch => {
   dispatch(gotCart(updatedLocalCart))
 }
 
-export const updateItemQuantity = (productId, itemQuantity) => async (
+export const updateItemQuantity = (productId, itemQuantity, from) => async (
   dispatch,
   getState
 ) => {
   try {
     const userId = getState().user.id
-    const res = await axios.put(`/api/orders/${userId}/products/${productId}`, {
-      itemQuantity
-    })
-    const cartLine = res.data
-    dispatch(gotUpdatedCartLine(cartLine))
+    const res = await axios.put(
+      `/api/orders/${userId}/products/${productId}/${from}`,
+      {
+        itemQuantity
+      }
+    )
+    const {created, orderLine: cartLine} = res.data
+
+    if (created) {
+      dispatch(gotNewCartLine(cartLine))
+    } else {
+      dispatch(gotUpdatedCartLine(cartLine))
+    }
   } catch (err) {
     console.error(err)
   }
 }
 
-export const updateItemQuantityLocal = (productId, itemQuantity) => (
-  dispatch,
-  getState
-) => {
-  const cartLine = getState().cart.find(cl => cl.productId === productId)
-  const updatedCartLine = {...cartLine, itemQuantity}
+export const updateItemQuantityLocal = (
+  productId,
+  itemQuantity,
+  from
+) => async (dispatch, getState) => {
+  const cart = getState().cart
+  const cartLine = cart.find(cl => cl.productId === productId)
+  let updatedCartLine = null
+  let updatedCartForLS = null
+  if (cartLine) {
+    if (from === 'product') {
+      updatedCartLine = {
+        ...cartLine,
+        itemQuantity: cartLine.itemQuantity + itemQuantity
+      }
+    } else if (from === 'cart') {
+      updatedCartLine = {...cartLine, itemQuantity}
+    }
 
-  const updatedCartForLS = getState().cart.map(cl => {
-    return cl.productId === productId ? updatedCartLine : {...cl}
-  })
+    updatedCartForLS = cart.map(cl => {
+      return cl.productId === productId ? updatedCartLine : {...cl}
+    })
 
-  localStorage.setItem('cart', JSON.stringify(updatedCartForLS))
+    dispatch(gotUpdatedCartLine(updatedCartLine))
 
-  dispatch(gotUpdatedCartLine(updatedCartLine))
+    localStorage.setItem('cart', JSON.stringify(updatedCartForLS))
+  } else {
+    const nextCartLineId = Number(localStorage.getItem('nextCartId'))
+
+    const newCartLine = {
+      id: nextCartLineId,
+      productId,
+      itemQuantity,
+      orderStatus: false
+    }
+
+    const res = await axios.get(`/api/products/${productId}`)
+    const product = res.data
+
+    const newCartLineWithProduct = {...newCartLine, product}
+
+    dispatch(gotNewCartLine(newCartLineWithProduct))
+
+    const newCartForLS = [...cart, newCartLineWithProduct]
+
+    localStorage.setItem('cart', JSON.stringify(newCartForLS))
+
+    localStorage.setItem('nextCartId', nextCartLineId + 1)
+  }
 }
 
 export const deleteItem = productId => async (dispatch, getState) => {
@@ -118,6 +177,8 @@ export default function(state = defaultCart, action) {
           ? action.cartLine
           : {...cartLine}
       })
+    case GOT_NEW_CART_LINE:
+      return [...state, action.cartLine]
     case DELETED_CART_ITEM:
       state = state.filter(cartLine => {
         return cartLine.product.id !== action.productId

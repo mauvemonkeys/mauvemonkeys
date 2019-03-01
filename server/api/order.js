@@ -25,8 +25,35 @@ router.get('/:userId', async (req, res, next) => {
   }
 })
 
+router.post('/:userId', async (req, res, next) => {
+  try {
+    const {cart} = req.body
+    const orderPromises = []
+    cart.forEach(cl => {
+      orderPromises.push(
+        Order.create({
+          productId: cl.productId,
+          userId: req.params.userId,
+          itemQuantity: cl.itemQuantity
+        })
+      )
+    })
+
+    await Promise.all(orderPromises)
+
+    const cartWithProductDetail = await Order.findAll({
+      where: {userId: req.params.userId, orderStatus: false},
+      include: [{model: Product}]
+    })
+
+    res.send(cartWithProductDetail)
+  } catch (err) {
+    next(err)
+  }
+})
+
 // Product detail and or update quantity in cart
-router.put('/:userId/products/:productId', async (req, res, next) => {
+router.put('/:userId/products/:productId/:from', async (req, res, next) => {
   try {
     const result = await Order.findOrCreate({
       where: {
@@ -42,24 +69,17 @@ router.put('/:userId/products/:productId', async (req, res, next) => {
     const created = result[1]
 
     if (!created) {
-      orderLine.itemQuantity = req.body.itemQuantity
+      if (req.params.from === 'product') {
+        orderLine.itemQuantity += req.body.itemQuantity
+      } else if (req.params.from === 'cart') {
+        orderLine.itemQuantity = req.body.itemQuantity
+      }
       orderLine = await orderLine.save()
+    } else {
+      const product = await orderLine.getProduct()
+      orderLine.dataValues.product = product
     }
-    res.status(created ? 201 : 200).send(orderLine)
-  } catch (err) {
-    next(err)
-  }
-})
-
-router.post('/:userId/product/:productId', async (req, res, next) => {
-  try {
-    console.log('========>', req.body)
-    const newOder = await Order.create({
-      productId: req.body.id,
-      userId: +req.params.userId,
-      itemQuantity: req.body.itemQuantity
-    })
-    res.sendStatus(200)
+    res.status(created ? 201 : 200).send({created, orderLine})
   } catch (err) {
     next(err)
   }
