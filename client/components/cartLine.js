@@ -39,7 +39,7 @@ class CartLine extends Component {
     return (
       <div>
         <li>
-          <div>
+          <div className="cart-line">
             <h4>{cartLine.product && cartLine.product.name}</h4>
             <span style={{paddingRight: '5px'}}>
               Price: {cartLine.product && cartLine.product.price}

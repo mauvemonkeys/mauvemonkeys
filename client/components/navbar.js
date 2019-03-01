@@ -4,12 +4,11 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
-
 class Navbar extends Component {
   render() {
     const {isLoggedIn, handleClick, cart} = this.props
     return (
-      <div>
+      <div className="navbar">
         <h1>Stickr</h1>
         <nav>
           {isLoggedIn ? (
@@ -32,12 +31,11 @@ class Navbar extends Component {
             </div>
           )}
         </nav>
-        <hr />
+        {/* <hr /> */}
       </div>
     )
   }
 }
-
 
 /**
  * CONTAINER
