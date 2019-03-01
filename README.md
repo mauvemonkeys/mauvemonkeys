@@ -1,84 +1,46 @@
-# Boilermaker
+# Stickr
 
-_Good things come in pairs_
+[![Build Status](https://travis-ci.org/mauvemonkeys/mauvemonkeys.svg?branch=master)](https://travis-ci.org/mauvemonkeys/mauvemonkeys) [![npm version](https://badge.fury.io/js/npm.svg)](https://badge.fury.io/js/npm) [![Waffle.io - Columns and their card count](https://badge.waffle.io/mauvemonkeys/mauvemonkeys.svg?columns=done)](https://waffle.io/mauvemonkeys/mauvemonkeys)
 
-Looking to mix up a backend with express/sequelize and a frontend with react/redux? That's `boilermaker`!
+_For all your throwback tech sticker needs_: Your one stop shop for laptop mounted nostalgia flair!
 
-Follow along with the workshop to make your own! This canonical version can serve as a reference, or a starting point all on its own.
+Stickr is a full-stack ecommerce project developed at Fullstack Academy which utilizes the NERDS stack (Node.js, Express, React, Databases using SQL).
+
+Check out [Stickr](https://mauve-monkeys.herokuapp.com/)!
 
 ## Setup
 
-To use this boilerplate, you'll need to take the following steps:
+To use the `stickr` project locally, you'll need to make use of npm (Node Package Manager).
+If you don't have NPM installed already, you can do so [here](https://www.npmjs.com/get-npm).
 
-* Don't fork or clone this repo! Instead, create a new, empty directory on your machine and `git init` (or create an empty repo on Github and clone it to your local machine)
-* Run the following commands:
+## Viewing Locally:
 
-```
-git remote add boilermaker https://github.com/FullstackAcademy/boilermaker.git
-git fetch boilermaker
-git merge boilermaker/master
-```
+With [npm](https://npmjs.org/) installed, run:
 
-Why did we do that? Because every once in a while, `boilermaker` may be updated with additional features or bug fixes, and you can easily get those changes from now on by entering:
+    $ npm start
 
-```
-git fetch boilermaker
-git merge boilermaker/master
-```
+and browse to http://localhost:8080/
 
-## Customize
+<!-- If you want to run the server and/or webpack separately, you can also `npm run start-server` and `npm run build-client`.
 
-Now that you've got the code, follow these steps to get acclimated:
+    npm run start-server
+    npm run build-client -->
 
-* Update project name and description in `package.json` and `.travis.yml` files
-* `npm install`, or `yarn install` - whatever you're into
-* Create two postgres databases: `boilermaker` and `boilermaker-test` (you can substitute these with the name of your own application - just be sure to go through and change the `package.json` and `.travis.yml` to refer to the new name)
-  * By default, running `npm test` will use `boilermaker-test`, while regular development uses `boilermaker`
-* Create a file called `secrets.js` in the project root
+## Team
 
-  * This file is `.gitignore`'d, and will _only_ be required in your _development_ environment
-  * Its purpose is to attach the secret env variables that you'll use while developing
-  * However, it's **very** important that you **not** push it to Github! Otherwise, _prying eyes_ will find your secret API keys!
-  * It might look like this:
+Coded with &hearts; at Fullstack by:
+[Abbey](https://github.com/abbeymondshein), [Henry](https://github.com/LonelyBuddy), [Ines](https://github.com/ineszenk), and [Ross](https://github.com/rsicher1).
 
-  ```
-    process.env.GOOGLE_CLIENT_ID = 'hush hush'
-    process.env.GOOGLE_CLIENT_SECRET = 'pretty secret'
-    process.env.GOOGLE_CALLBACK = '/auth/google/callback'
-  ```
-
-* To use OAuth with Google, complete the step above with a real client ID and client secret from Google
-  * You can get them here: https://console.developers.google.com/apis/credentials
-* Finally, complete the section below to set up your linter
-
-## Linting
-
-Linters are fundamental to any project - they ensure that your code has a consistent style, which is critical to writing readable code.
-
-Boilermaker comes with a working linter (ESLint, with `eslint-config-fullstack`) "out of the box." However, everyone has their own style, so we recommend that you and your team work out yours and stick to it. Any linter rule that you object to can be "turned off" in `.eslintrc.json`. You may also choose an entirely different config if you don't like ours:
-
-* [Standard style guide](https://standardjs.com/)
-* [Airbnb style guide](https://github.com/airbnb/javascript)
-* [Google style guide](https://google.github.io/styleguide/jsguide.html)
-
-## Start
-
-`npm run start-dev` will make great things happen!
-
-If you want to run the server and/or webpack separately, you can also `npm run start-server` and `npm run build-client`.
-
-From there, just follow your bliss.
-
-## Deployment
+<!-- ## Deployment
 
 Ready to go world wide? Here's a guide to deployment! There are two (compatible) ways to deploy:
 
 * automatically, via continuous integration
 * manually, from your local machine
 
-Either way, you'll need to set up your deployment server to start:
+Either way, you'll need to set up your deployment server to start: -->
 
-### Prep
+<!-- ### Prep
 
 1.  Set up the [Heroku command line tools](https://devcenter.heroku.com/articles/heroku-cli)
 2.  `heroku login`
@@ -130,4 +92,4 @@ Some developers may prefer to control deployment rather than rely on automation.
 
 Now, you should be deployed!
 
-Why do all of these steps? The big reason is because we don't want our production server to be cluttered up with dev dependencies like webpack, but at the same time we don't want our development git-tracking to be cluttered with production build files like bundle.js! By doing these steps, we make sure our development and production environments both stay nice and clean!
+Why do all of these steps? The big reason is because we don't want our production server to be cluttered up with dev dependencies like webpack, but at the same time we don't want our development git-tracking to be cluttered with production build files like bundle.js! By doing these steps, we make sure our development and production environments both stay nice and clean! -->
