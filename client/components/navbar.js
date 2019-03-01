@@ -4,7 +4,6 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
-
 class Navbar extends Component {
   render() {
     const {isLoggedIn, handleClick, cart} = this.props
@@ -17,7 +16,7 @@ class Navbar extends Component {
               {/* The navbar will show these links after you log in */}
               <Link to="/products">Products</Link>
               <Link to="/cart">Cart ({cart.length})</Link>
-              <Link to="/edit">Edit</Link>
+              <Link to="/profile">Profile</Link>
               <a href="#" onClick={handleClick}>
                 Logout
               </a>
@@ -37,7 +36,6 @@ class Navbar extends Component {
     )
   }
 }
-
 
 /**
  * CONTAINER

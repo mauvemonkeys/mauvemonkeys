@@ -13,7 +13,7 @@ describe('auth routes', () => {
     password: '666',
     firstName: 'Henry',
     lastName: 'God',
-    phone: 66612357
+    phone: '66612357'
   }
   beforeEach(async () => {
     await db.sync({force: true})
@@ -34,7 +34,7 @@ describe('auth routes', () => {
         email: 'HenryGod@gmail.com',
         firstName: 'Henry',
         lastName: 'God',
-        phone: 66612357
+        phone: '66612357'
       })
     })
 
@@ -59,7 +59,7 @@ describe('auth routes', () => {
       password: '555',
       firstName: 'Ross',
       lastName: 'Sicherman',
-      phone: 66612357
+      phone: '66612357'
     }
 
     it('POST /auth/signup signs up user successfully', async () => {
@@ -75,7 +75,7 @@ describe('auth routes', () => {
         email: 'ross@gmail.com',
         firstName: 'Ross',
         lastName: 'Sicherman',
-        phone: 66612357
+        phone: '66612357'
       })
     })
 
@@ -103,7 +103,7 @@ describe('auth routes', () => {
         email: 'HenryGod@gmail.com',
         firstName: 'Henry',
         lastName: 'God',
-        phone: 66612357
+        phone: '66612357'
       })
     })
   })
