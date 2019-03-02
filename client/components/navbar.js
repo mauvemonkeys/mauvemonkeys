@@ -9,25 +9,41 @@ class Navbar extends Component {
     const {isLoggedIn, handleClick, cart} = this.props
     return (
       <div className="navbar">
-        <h1>Stickr</h1>
+        <div className="logo-div">
+          <h1 className="logo">Stickr</h1>
+        </div>
         <nav>
           {isLoggedIn ? (
             <div>
               {/* The navbar will show these links after you log in */}
-              <Link to="/products">Products</Link>
-              <Link to="/cart">Cart ({cart.length})</Link>
-              <Link to="/profile">Profile</Link>
-              <a href="#" onClick={handleClick}>
+              <Link to="/products" className="nav-links">
+                Products
+              </Link>
+              <Link to="/cart" className="nav-links">
+                Cart ({cart.length})
+              </Link>
+              <Link to="/profile" className="nav-links">
+                Profile
+              </Link>
+              <a href="#" onClick={handleClick} className="nav-links">
                 Logout
               </a>
             </div>
           ) : (
             <div>
               {/* The navbar will show these links before you log in */}
-              <Link to="/products">Products</Link>
-              <Link to="/cart">Cart ({cart.length})</Link>
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Sign Up</Link>
+              <Link to="/products" className="nav-links">
+                Products
+              </Link>
+              <Link to="/cart" className="nav-links">
+                Cart ({cart.length})
+              </Link>
+              <Link to="/login" className="nav-links">
+                Login
+              </Link>
+              <Link to="/signup" className="nav-links">
+                Sign Up
+              </Link>
             </div>
           )}
         </nav>

@@ -85,6 +85,24 @@ router.put('/:userId/products/:productId/:from', async (req, res, next) => {
   }
 })
 
+//Checkout Items
+router.put('/:userId/checkout', async (req, res, next) => {
+  try {
+    await Order.update(
+      {
+        orderStatus: true,
+        orderTS: Date.now()
+      },
+      {
+        where: {userId: req.params.userId, orderStatus: false}
+      }
+    )
+    res.sendStatus(200)
+  } catch (err) {
+    next(err)
+  }
+})
+
 // Product delete
 router.delete('/:userId/products/:productId', async (req, res, next) => {
   try {
