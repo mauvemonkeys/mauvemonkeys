@@ -6,7 +6,6 @@ font-family: 'Inconsolata', monospace;
 h1 {
   font-family: 'Fugaz One', cursive;
   font-size: 3em;
-  /* font-family: 'ZCOOL QingKe HuangYou', cursive; */
 }
 h3 {
   font-family: 'Inconsolata', monospace;
@@ -120,10 +119,6 @@ a:active {
   text-decoration: underline;
 }
 
-/* a:hover {
-  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0) 100%);
-} */
-
 button {
   border-radius: 5px;
 }
@@ -133,6 +128,31 @@ button:hover {
   box-shadow: 2px 2px 7px 0px black;
 }
 
-/* .cart-line h4 {
-  display: flex
-} */
+.nav-links:hover {
+  background-color: rgb(199, 116, 27);
+}
+
+@media (max-width: 728px) {
+  nav {
+    margin: 0;
+  }
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 520px) {
+  nav {
+    width: 85%;
+  }
+  nav div {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+  }
+  .nav-links {
+    margin: 8px 0 0 0;
+    padding: 10px 0;
+  }
+}
