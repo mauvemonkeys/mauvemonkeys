@@ -6,7 +6,6 @@ font-family: 'Inconsolata', monospace;
 h1 {
   font-family: 'Fugaz One', cursive;
   font-size: 3em;
-  /* font-family: 'ZCOOL QingKe HuangYou', cursive; */
 }
 h3 {
   font-family: 'Inconsolata', monospace;
@@ -17,6 +16,7 @@ h2 {
 body {
   font-family: 'Inconsolata', sans-serif;
   text-align: center;
+  background-image: url('./background_img.jpg');
 }
 
 a {
@@ -29,9 +29,46 @@ label {
 }
 
 .navbar {
-  background-color: lightskyblue;
+  background-color: rgb(131, 139, 152);
   border-radius: 50px 20px;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 83px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 98%;
+  /* **************** */
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0) 100%);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0) 100%);
+  background-position-x: initial;
+  background-position-y: initial;
+  background-size: initial;
+  /* background-repeat-x: initial;
+  background-repeat-y: initial; */
+  background-attachment: initial;
+  background-origin: initial;
+  background-clip: initial;
+  background-color: initial;
 }
+
+nav {
+  align-self: center;
+  margin-right: 43px;
+}
+
+.logo-div {
+  background: rgb(0, 0, 0);
+  height: 160px;
+  width: 160px;
+  border-radius: 50%;
+}
+
+.logo {
+  color: rgb(227, 226, 226);
+  margin: 0;
+  padding-top: 45px;
+}
+
 nav a {
   display: inline-block;
   margin: 1em;
@@ -51,6 +88,11 @@ img {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  background-color: rgba(250, 235, 215, 0.338);
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 90px;
+  border-radius: 5px;
 }
 
 .product-item {
@@ -63,6 +105,54 @@ ul {
 .row-gap {
   margin: 45px;
 }
-/* .cart-line h4 {
-  display: flex
-} */
+
+.nav-links {
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  padding: 5px 10px;
+  background: 0 0;
+  box-shadow: 0 0 0 1px #fff, 0 0 0 1px #fff;
+  border-radius: 25px;
+}
+
+a:active {
+  text-decoration: underline;
+}
+
+button {
+  border-radius: 5px;
+}
+
+button:hover {
+  border-radius: 5px;
+  box-shadow: 2px 2px 7px 0px black;
+}
+
+.nav-links:hover {
+  background-color: rgb(199, 116, 27);
+}
+
+@media (max-width: 728px) {
+  nav {
+    margin: 0;
+  }
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 520px) {
+  nav {
+    width: 85%;
+  }
+  nav div {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+  }
+  .nav-links {
+    margin: 8px 0 0 0;
+    padding: 10px 0;
+  }
+}
