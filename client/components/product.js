@@ -3,7 +3,7 @@ import React from 'react'
 const Product = ({product, handleClick}) => {
   return (
     <div className="product-item">
-      <div>
+      <div id="backgroundimg">
         <img src={product.imageUrl} onClick={() => handleClick(product.id)} />
       </div>
       <div>
