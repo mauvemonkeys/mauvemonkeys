@@ -6,7 +6,7 @@ _For all your throwback tech sticker needs_: Your one stop shop for laptop mount
 
 Stickr is a full-stack ecommerce project developed at Fullstack Academy which utilizes the NERDS stack (Node.js, Express, React, Databases using SQL).
 
-Check out [Stickr](https://mauve-monkeys.herokuapp.com/)!
+Check out [Stickr](https://stickr-shop.herokuapp.com/)!
 
 ## Setup
 
