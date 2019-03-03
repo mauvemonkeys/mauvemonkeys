@@ -81,7 +81,8 @@ form div {
 
 img {
   height: 100px;
-  width: 155px;
+  width: 120px;
+  margin-top: 2em;
 }
 
 #product-container {
@@ -89,7 +90,30 @@ img {
   flex-wrap: wrap;
   justify-content: space-around;
   background-color: rgba(250, 235, 215, 0.338);
-  width: 80%;
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 90px;
+  border-radius: 5px;
+}
+
+#backgroundimg {
+  height: 160px;
+  width: 160px;
+  border-radius: 50%;
+  background-color: white;
+}
+
+#form {
+  background-color: rgba(250, 235, 215, 0.338);
+  width: 40%;
+  margin: 0 auto;
+  margin-top: 90px;
+  border-radius: 5px;
+}
+
+#cart {
+  background-color: rgba(250, 235, 215, 0.338);
+  width: 40%;
   margin: 0 auto;
   margin-top: 90px;
   border-radius: 5px;
@@ -121,6 +145,7 @@ a:active {
 
 button {
   border-radius: 5px;
+  margin-top: 2em;
 }
 
 button:hover {
