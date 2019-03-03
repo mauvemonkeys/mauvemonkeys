@@ -19,7 +19,7 @@ class Cart extends Component {
 
   render() {
     return (
-      <div>
+      <div id="cart">
         <h2>Cart</h2>
         <ul>
           {this.props.cart.map(cl => <CartLine key={cl.id} cartLine={cl} />)}

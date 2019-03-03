@@ -54,7 +54,7 @@ class AuthForm extends Component {
     const {name, headerText, buttonText, error, isLoggedIn} = this.props
     const {firstName, lastName, phone, email, password} = this.state
     return (
-      <div>
+      <div id="form">
         <h3>{headerText}</h3>
         <form onSubmit={this.handleSubmit}>
           {['signup', 'editUser'].includes(name) && (
