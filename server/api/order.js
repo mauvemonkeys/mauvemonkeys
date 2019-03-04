@@ -102,7 +102,7 @@ router.post('/:userId/charge', async (req, res, next) => {
 
   //try {
   let {status} = await stripe.charges.create({
-    amount: orderTotal,
+    amount: orderTotal * 100,
     currency: 'usd',
     description: 'An example charge',
     source: req.body.token
