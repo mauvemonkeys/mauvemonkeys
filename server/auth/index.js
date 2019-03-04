@@ -7,12 +7,19 @@ module.exports = router
 router.post('/login', async (req, res, next) => {
   try {
     req.body.email = req.body.email.toLowerCase()
+    console.log(req.body)
     const user = await User.findOne({
       where: {
-        email: req.body.email
+        email: req.body.email,
+        password: {
+          [Op.ne]: null
+        }
       }
     })
     if (!user) {
+      console.log('No such user found:', req.body.email)
+      res.status(401).send('Wrong username and/or password')
+    } else if (!user.password()) {
       console.log('No such user found:', req.body.email)
       res.status(401).send('Wrong username and/or password')
     } else if (!user.correctPassword(req.body.password)) {
