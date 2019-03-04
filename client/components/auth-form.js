@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth, editUser} from '../store'
+import {Link} from 'react-router-dom'
 
 /**
  * COMPONENT
@@ -123,7 +124,19 @@ class AuthForm extends Component {
           </div>
           {error && error.response && <div> {error.response.data} </div>}
         </form>
-        {!isLoggedIn && <a href="/auth/google">{headerText} with Google</a>}
+
+        {!isLoggedIn && (
+          <div>
+            {headerText === 'Login' && (
+              <div>
+                Don't have a account? <br />
+                <Link to="/signup">Sigh up here!</Link>
+              </div>
+            )}
+            <br />
+            <a href="/auth/google">{headerText} with Google</a>
+          </div>
+        )}
       </div>
     )
   }
