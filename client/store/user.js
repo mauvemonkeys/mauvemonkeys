@@ -89,10 +89,7 @@ export const editUser = ({
 }) => async (dispatch, getState) => {
   try {
     const id = getState().user.id
-    const userInfo = {email, password, firstName, lastName, phone}
-    if (!password.trim()) {
-      userInfo.password = password
-    }
+    const userInfo = {email, firstName, password, lastName, phone}
     await axios.put(`api/users/${id}/edit`, userInfo)
     dispatch(updateUser(userInfo))
     history.push('/profile')
