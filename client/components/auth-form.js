@@ -44,8 +44,19 @@ class AuthForm extends Component {
       this.props.editUser({firstName, lastName, email, password, phone})
     } else if (formName === 'signup') {
       this.props.auth(email, password, formName, firstName, lastName, phone)
+      alert('Reciept was sent to your email')
+      var x = document.getElementById('popUp')
+      x.className = 'show'
+      setTimeout(function() {
+        x.className = x.className.replace('show', '')
+      }, 3000)
     } else {
       this.props.auth(email, password, formName)
+      var x = document.getElementById('popUp')
+      x.className = 'show'
+      setTimeout(function() {
+        x.className = x.className.replace('show', '')
+      }, 3000)
     }
   }
 
@@ -120,6 +131,7 @@ class AuthForm extends Component {
           </div>
           <div>
             <button type="submit">{buttonText}</button>
+            <div id="popUp">You are login now !</div>
           </div>
           {error && error.response && <div> {error.response.data} </div>}
         </form>
