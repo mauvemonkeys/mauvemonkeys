@@ -9,10 +9,7 @@ router.post('/login', async (req, res, next) => {
     req.body.email = req.body.email.toLowerCase()
     const user = await User.findOne({
       where: {
-        email: req.body.email,
-        password: {
-          [Op.ne]: null
-        }
+        email: req.body.email
       }
     })
     if (!user) {
