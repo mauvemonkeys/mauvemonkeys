@@ -1,13 +1,10 @@
 const router = require('express').Router()
 const User = require('../db/models/user')
-const Sequelize = require('sequelize')
-const Op = Sequelize.Op
 module.exports = router
 
 router.post('/login', async (req, res, next) => {
   try {
     req.body.email = req.body.email.toLowerCase()
-    console.log(req.body)
     const user = await User.findOne({
       where: {
         email: req.body.email
@@ -17,7 +14,7 @@ router.post('/login', async (req, res, next) => {
       console.log('No such user found:', req.body.email)
       res.status(401).send('Wrong username and/or password')
     } else if (!user.password()) {
-      console.log('No such user found:', req.body.email)
+      console.log('Incorrect password for user:', req.body.email)
       res.status(401).send('Wrong username and/or password')
     } else if (!user.correctPassword(req.body.password)) {
       console.log('Incorrect password for user:', req.body.email)
