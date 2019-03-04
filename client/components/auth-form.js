@@ -129,7 +129,7 @@ class AuthForm extends Component {
           <div>
             {headerText === 'Login' && (
               <div>
-                Don't have a account? <br />
+                Don’t have a account? <br />
                 <Link to="/signup">Sigh up here!</Link>
               </div>
             )}
