@@ -114,7 +114,6 @@ export default function(state = defaultUser, action) {
           updatedUser[key] = action.user[key]
         }
       }
-      console.log('========>', updatedUser)
       return {...state, ...updatedUser}
     default:
       return state
