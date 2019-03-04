@@ -181,3 +181,8 @@ button:hover {
     padding: 10px 0;
   }
 }
+
+#link {
+  display: flex;
+  flex-direction: column;
+}
