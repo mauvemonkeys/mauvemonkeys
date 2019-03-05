@@ -12,7 +12,8 @@ import {
   UserProfile,
   Checkout,
   EditProduct,
-  History
+  History,
+  NotFound
 } from './components'
 import {me, getCart, getCartLocal} from './store'
 
@@ -52,7 +53,8 @@ class Routes extends Component {
             <Route path="/edit" component={EditUser} />
             <Route path="/checkedout" component={Checkout} />
             <Route path="/history" component={History} />
-            <Route component={ProductList} />
+            <Route path="/" component={ProductList} />
+            <Route component={NotFound} />
           </Switch>
         )}
         {/* Routes placed here are available to all visitors */}
@@ -61,9 +63,10 @@ class Routes extends Component {
         <Route path="/products/:productId" component={SingleProduct} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route path="/" component={ProductList} />
 
-        {/* Displays our Login component as a fallback */}
-        <Route component={ProductList} />
+        {/* Displays 404 as a fallback */}
+        <Route component={NotFound} />
       </Switch>
     )
   }
