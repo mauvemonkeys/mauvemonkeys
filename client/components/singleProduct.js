@@ -71,7 +71,9 @@ class SingleProduct extends Component {
           <h1>{name}</h1>
         </div>
         <div className="row-gap">
-          <img src={imageUrl} />
+          <div id="backgroundimg2">
+            <img src={imageUrl} />
+          </div>
         </div>
         <div className="row-gap">${price}</div>
         <div className="row-gap">{description}</div>
