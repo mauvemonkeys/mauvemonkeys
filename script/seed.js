@@ -51,8 +51,7 @@ async function seed() {
     Product.create({
       name: 'Internet Explorer',
       description: 'The most forced way to access the world wide web',
-      imageUrl:
-        'https://vignette.wikia.nocookie.net/logopedia/images/0/03/Internet_Explorer_5_logo.png/revision/latest/scale-to-width-down/200?cb=20180319023708',
+      imageUrl: 'https://pic.clubic.com/v1/images/1506750/raw',
       price: 15
     }),
     Product.create({
