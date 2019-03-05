@@ -4,9 +4,6 @@ import PropTypes from 'prop-types'
 import {auth, editUser} from '../store'
 import {Link} from 'react-router-dom'
 
-/**
- * COMPONENT
- */
 class AuthForm extends Component {
   constructor(props) {
     super(props)

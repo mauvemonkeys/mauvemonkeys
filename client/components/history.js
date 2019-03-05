@@ -20,7 +20,6 @@ export class History extends Component {
   }
 
   render() {
-    console.log(this.state.history, '$$$$$$$')
     return (
       <div>
         <h1>Order History</h1>

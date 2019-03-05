@@ -29,7 +29,8 @@ router.get('/:id', async (req, res, next) => {
       err.status = 404
       return next(err)
     }
-    res.send(product)
+    const {id, name, description, imageUrl, price} = product.dataValues
+    res.send({id, name, description, imageUrl, price})
   } catch (err) {
     next(err)
   }

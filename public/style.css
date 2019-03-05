@@ -29,26 +29,13 @@ label {
 }
 
 .navbar {
-  background-color: rgb(131, 139, 152);
-  border-radius: 50px 20px;
   display: flex;
   justify-content: space-between;
   border-radius: 83px;
   margin-left: auto;
   margin-right: auto;
   width: 98%;
-  /* **************** */
   background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0) 100%);
-  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0) 100%);
-  background-position-x: initial;
-  background-position-y: initial;
-  background-size: initial;
-  /* background-repeat-x: initial;
-  background-repeat-y: initial; */
-  background-attachment: initial;
-  background-origin: initial;
-  background-clip: initial;
-  background-color: initial;
 }
 
 nav {
