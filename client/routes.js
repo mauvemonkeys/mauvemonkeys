@@ -11,7 +11,8 @@ import {
   Cart,
   UserProfile,
   Checkout,
-  EditProduct
+  EditProduct,
+  History
 } from './components'
 import {me, getCart, getCartLocal} from './store'
 
@@ -50,6 +51,7 @@ class Routes extends Component {
             <Route path="/profile" component={UserProfile} />
             <Route path="/edit" component={EditUser} />
             <Route path="/checkedout" component={Checkout} />
+            <Route path="/history" component={History} />
             <Route component={ProductList} />
           </Switch>
         )}

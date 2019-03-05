@@ -111,6 +111,23 @@ router.put('/:userId/checkout', async (req, res, next) => {
   }
 })
 
+router.get('/:userId/history', async (req, res, next) => {
+  try {
+    const orderLines = await Order.findAll({
+      where: {userId: req.params.userId, orderStatus: true},
+      include: [{model: Product}]
+    })
+    orderLines.map(order => {
+      order.orderPrice = order.product.price
+      order.dataValues.total = order.product.price * order.itemQuantity
+    })
+
+    res.send(orderLines)
+  } catch (err) {
+    next(err)
+  }
+})
+
 // Product delete
 router.delete('/:userId/products/:productId', async (req, res, next) => {
   try {
