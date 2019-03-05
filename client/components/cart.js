@@ -7,53 +7,62 @@ import {Elements, StripeProvider} from 'react-stripe-elements'
 import CheckoutForm from './checkoutForm'
 
 class Cart extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
 
     this.handleClick = this.handleClick.bind(this)
   }
 
   async handleClick() {
-    this.props.history.push('/checkedout')
     await axios.put(`/api/orders/${this.props.user.id}/checkout`)
     this.props.checkoutOrders()
+
+    this.props.history.push('/checkedout')
   }
 
   render() {
-    const {user, history} = this.props
+    const {cart, user, history} = this.props
 
     return (
-      <div id="cart">
-        <h2>Cart</h2>
-        <ul>
-          {this.props.cart.map(cl => <CartLine key={cl.id} cartLine={cl} />)}
+      <div id="cart" style={{paddingTop: '10px', paddingBottom: '10px'}}>
+        <h2 style={{marginTop: '0'}}>Cart</h2>
+        <ul style={{paddingLeft: 0}}>
+          {cart.map(cl => <CartLine key={cl.id} cartLine={cl} />)}
         </ul>
         <div>
-          Total:{' '}
-          {this.props.cart.reduce(
+          Total: ${this.props.cart.reduce(
             (total, cartLine) =>
               total + cartLine.product.price * cartLine.itemQuantity,
             0
           )}{' '}
         </div>
-        <div>
-          <StripeProvider apiKey="pk_test_QorOLkP9hIdDgJ1rJICv33A8">
-            <Elements>
-              <CheckoutForm user={this.props.user} />
-            </Elements>
-          </StripeProvider>
-        </div>
-        <div>
-          {user.id ? (
-            <button type="button" onClick={this.handleClick}>
-              CHECKOUT
-            </button>
-          ) : (
-            <button type="button" onClick={() => history.push('/login')}>
-              CHECKOUT
-            </button>
-          )}
-        </div>
+        {cart.length ? (
+          <div>
+            {user.id ? (
+              <div>
+                <h3>Pay</h3>
+                <StripeProvider apiKey="pk_test_QorOLkP9hIdDgJ1rJICv33A8">
+                  <Elements>
+                    <CheckoutForm
+                      user={this.props.user}
+                      handleClick={this.handleClick}
+                    />
+                  </Elements>
+                </StripeProvider>
+              </div>
+            ) : (
+              <button
+                style={{marginBottom: '10px'}}
+                type="button"
+                onClick={() => history.push('/login')}
+              >
+                Checkout
+              </button>
+            )}
+          </div>
+        ) : (
+          ''
+        )}
       </div>
     )
   }
