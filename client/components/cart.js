@@ -20,6 +20,8 @@ class Cart extends Component {
   }
 
   render() {
+    const {user, history} = this.props
+
     return (
       <div id="cart">
         <h2>Cart</h2>
@@ -42,9 +44,15 @@ class Cart extends Component {
           </StripeProvider>
         </div>
         <div>
-          <button type="button" onClick={this.handleClick}>
-            CHECKOUT
-          </button>
+          {user.id ? (
+            <button type="button" onClick={this.handleClick}>
+              CHECKOUT
+            </button>
+          ) : (
+            <button type="button" onClick={() => history.push('/login')}>
+              CHECKOUT
+            </button>
+          )}
         </div>
       </div>
     )

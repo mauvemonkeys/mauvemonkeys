@@ -12,8 +12,9 @@ const userProfile = props => {
       <div>Last Name: {lastName}</div>
       <div>Phone: {phone}</div>
       <div>Email: {email}</div>
-      <div style={{marginTop: '10px'}}>
+      <div id="link">
         <Link to="/edit">Edit Profile</Link>
+        <Link to="/history">Order History</Link>
       </div>
     </div>
   )
