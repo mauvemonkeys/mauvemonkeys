@@ -6,10 +6,12 @@ const Product = ({product, handleClick, isAdmin, handleDispatchProduct}) => {
       <div id="backgroundimg">
         <img src={product.imageUrl} onClick={() => handleClick(product.id)} />
       </div>
-      <div>
-        <h3 onClick={() => handleClick(product.id)}>{product.name}</h3>
+      <div id="info">
+        <div>
+          <h3 onClick={() => handleClick(product.id)}>{product.name}</h3>
+        </div>
+        <div>${product.price}</div>
       </div>
-      <div>${product.price}</div>
       {isAdmin && (
         <button onClick={() => handleDispatchProduct(product.id)}>Edit</button>
       )}
