@@ -90,27 +90,31 @@ img {
   border-radius: 50%;
   background-color: white;
 }
-.single-product-div {
+
+.single-product-div,
+#form,
+#cart,
+#history {
   background-color: rgba(250, 235, 215, 0.338);
-  width: 90%;
   margin: 0 auto;
-  border-radius: 5px;
+  border-radius: 8px;
+  width: 40%;
+  margin-top: 90px;
+}
+
+.single-product-div {
+  margin: 0 auto;
+  width: 50%;
 }
 
 #form {
-  background-color: rgba(250, 235, 215, 0.338);
-  width: 40%;
-  margin: 0 auto;
-  margin-top: 90px;
-  border-radius: 5px;
 }
 
 #cart {
-  background-color: rgba(250, 235, 215, 0.338);
-  width: 40%;
+}
+
+#history {
   margin: 0 auto;
-  margin-top: 90px;
-  border-radius: 5px;
 }
 
 .product-item {
@@ -158,6 +162,10 @@ button:hover {
   .navbar {
     flex-direction: column;
     align-items: center;
+  }
+  .single-product-div,
+  #history {
+    width: 90%;
   }
 }
 
