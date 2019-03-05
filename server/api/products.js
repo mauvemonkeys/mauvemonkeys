@@ -38,7 +38,6 @@ router.get('/:id', async (req, res, next) => {
       imageUrl,
       price
     }
-    console.log(editedProduct)
     res.send(editedProduct)
   } catch (err) {
     next(err)
