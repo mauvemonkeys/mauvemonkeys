@@ -19,7 +19,8 @@ h2 {
 body {
   font-family: 'Inconsolata', sans-serif;
   text-align: center;
-  background-image: url('./background_img.jpg');
+  background-image: url('./laptop-bg.jpg');
+  background-size: 100%;
 }
 
 a {
@@ -32,26 +33,13 @@ label {
 }
 
 .navbar {
-  background-color: rgb(131, 139, 152);
-  border-radius: 50px 20px;
   display: flex;
   justify-content: space-between;
   border-radius: 83px;
   margin-left: auto;
   margin-right: auto;
   width: 98%;
-  /* **************** */
   background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0) 100%);
-  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0) 100%);
-  background-position-x: initial;
-  background-position-y: initial;
-  background-size: initial;
-  /* background-repeat-x: initial;
-  background-repeat-y: initial; */
-  background-attachment: initial;
-  background-origin: initial;
-  background-clip: initial;
-  background-color: initial;
 }
 
 nav {
@@ -105,27 +93,31 @@ img {
   border-radius: 50%;
   background-color: white;
 }
-.single-product-div {
+
+.single-product-div,
+#form,
+#cart,
+#history {
   background-color: rgba(250, 235, 215, 0.338);
-  width: 90%;
   margin: 0 auto;
-  border-radius: 5px;
+  border-radius: 8px;
+  width: 40%;
+  margin-top: 90px;
+}
+
+.single-product-div {
+  margin: 0 auto;
+  width: 50%;
 }
 
 #form {
-  background-color: rgba(250, 235, 215, 0.338);
-  width: 40%;
-  margin: 0 auto;
-  margin-top: 90px;
-  border-radius: 5px;
 }
 
 #cart {
-  background-color: rgba(250, 235, 215, 0.338);
-  width: 40%;
+}
+
+#history {
   margin: 0 auto;
-  margin-top: 90px;
-  border-radius: 5px;
 }
 
 .product-item {
@@ -187,6 +179,10 @@ button:hover {
   .navbar {
     flex-direction: column;
     align-items: center;
+  }
+  .single-product-div,
+  #history {
+    width: 90%;
   }
 }
 

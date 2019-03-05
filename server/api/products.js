@@ -29,7 +29,15 @@ router.get('/:id', async (req, res, next) => {
       err.status = 404
       return next(err)
     }
-    res.send(product)
+    const {id, name, description, imageUrl, price} = product.dataValues
+    const editedProduct = {
+      id,
+      name,
+      description,
+      imageUrl,
+      price
+    }
+    res.send(editedProduct)
   } catch (err) {
     if (err.message.includes('invalid input')) {
       let newErr = new Error('Product not found')

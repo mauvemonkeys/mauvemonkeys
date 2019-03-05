@@ -12,15 +12,14 @@ const loggedIn = (req, res, next) => {
 
 const isAdmin = (req, res, next) => {
   if (!req.user || !req.user.isAdmin) {
-    let err = new Error('Forbidden')
+    let err = new Error('Only Admin Has Access To This Page')
     err.status = 403
     return next(err)
   }
   next()
 }
-
 router.use('/admin', isAdmin, require('./admin'))
-router.use('/users', require('./users'))
+router.use('/users', loggedIn, require('./users'))
 router.use('/products', require('./products'))
 router.use('/orders', loggedIn, require('./order'))
 

@@ -4,9 +4,6 @@ import PropTypes from 'prop-types'
 import {auth, editUser} from '../store'
 import {Link} from 'react-router-dom'
 
-/**
- * COMPONENT
- */
 class AuthForm extends Component {
   constructor(props) {
     super(props)
@@ -106,7 +103,6 @@ class AuthForm extends Component {
                     type="text"
                     value={lastName}
                     onChange={this.handleChange}
-                    // label="Required Field"
                     required
                   />
                 )}
@@ -118,7 +114,7 @@ class AuthForm extends Component {
                 <input
                   name="phone"
                   type="tel"
-                  placeholder="xxx-xxx-xxxx"
+                  placeholder="xxxxxxxxxx"
                   pattern="^[0-9]*$"
                   title="Phone may only contain numbers"
                   value={phone}
