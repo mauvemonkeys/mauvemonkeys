@@ -18,9 +18,8 @@ const isAdmin = (req, res, next) => {
   }
   next()
 }
-
 router.use('/admin', isAdmin, require('./admin'))
-router.use('/users', require('./users'))
+router.use('/users', loggedIn, require('./users'))
 router.use('/products', require('./products'))
 router.use('/orders', loggedIn, require('./order'))
 

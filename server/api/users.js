@@ -11,15 +11,6 @@ const verifyUser = (req, res, next) => {
   next()
 }
 
-router.get('/:id', async (req, res, next) => {
-  try {
-    const user = await User.findById(req.params.id)
-    res.json(user)
-  } catch (error) {
-    next(error)
-  }
-})
-
 router.put('/:id/edit', verifyUser, async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id)
