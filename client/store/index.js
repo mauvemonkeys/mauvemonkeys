@@ -7,9 +7,14 @@ import cart from './cart'
 import product from './product'
 
 const reducer = combineReducers({user, cart, product})
-const middleware = composeWithDevTools(
-  applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
-)
+// sets middleware to production
+let middleware = composeWithDevTools(applyMiddleware(thunkMiddleware))
+if (process.env.NODE_ENV === 'development') {
+  const middleware = composeWithDevTools(
+    applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
+  )
+}
+
 const store = createStore(reducer, middleware)
 
 export default store
