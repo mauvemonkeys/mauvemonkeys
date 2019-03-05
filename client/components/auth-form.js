@@ -153,6 +153,7 @@ class AuthForm extends Component {
           </div>
           <div>
             <button type="submit">{buttonText}</button>
+            <div id="popUp">You are login now !</div>
           </div>
           {error && error.response && <div> {error.response.data} </div>}
         </form>

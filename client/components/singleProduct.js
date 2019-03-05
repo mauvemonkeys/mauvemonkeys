@@ -39,6 +39,12 @@ class SingleProduct extends Component {
         'product'
       )
     }
+
+    var x = document.getElementById('popUp')
+    x.className = 'show'
+    setTimeout(function() {
+      x.className = x.className.replace('show', '')
+    }, 3000)
   }
 
   handleChange(evt) {
@@ -69,17 +75,25 @@ class SingleProduct extends Component {
         </div>
         <div className="row-gap">${price}</div>
         <div className="row-gap">{description}</div>
-        <div>{this.state.itemQuantity}</div>
-        <button type="button" onClick={() => this.decrement()}>
-          -
-        </button>
-        <button type="button" onClick={() => this.increment()}>
-          +
-        </button>
+
+        <div id="productQty">
+          <button type="button" onClick={() => this.decrement()}>
+            -
+          </button>
+          <div>{this.state.itemQuantity}</div>
+          <button type="button" onClick={() => this.increment()}>
+            +
+          </button>
+        </div>
         <br />
         <button type="submit" onClick={this.handleSubmit}>
           Add to cart
         </button>
+
+        <div id="popUp">
+          {this.state.itemQuantity} {name} added to cart !
+        </div>
+
         <br />
         {this.props.isAdmin && (
           <button
@@ -89,6 +103,7 @@ class SingleProduct extends Component {
             Edit
           </button>
         )}
+
       </div>
     )
   }
