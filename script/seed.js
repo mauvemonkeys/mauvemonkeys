@@ -44,7 +44,8 @@ async function seed() {
       name: 'Angelfire',
       description:
         'A much cooler place to host your homepage on the world wide web. WOWZERS!',
-      imageUrl: 'https://cdn.worldvectorlogo.com/logos/angelfire.svg',
+      imageUrl:
+        'https://www.paypalobjects.com/en_US/i/logo/logo_angelfire_210x80.gif',
       price: 25
     }),
     Product.create({
@@ -53,6 +54,38 @@ async function seed() {
       imageUrl:
         'https://vignette.wikia.nocookie.net/logopedia/images/0/03/Internet_Explorer_5_logo.png/revision/latest/scale-to-width-down/200?cb=20180319023708',
       price: 15
+    }),
+    Product.create({
+      name: 'Napster',
+      description:
+        'Totally not where you contracted your first computer virus.',
+      imageUrl:
+        'http://seekvectorlogo.com/wp-content/uploads/2018/01/napster-vector-logo-small.png',
+      price: 25
+    }),
+    Product.create({
+      name: 'Kazaa',
+      description:
+        'Way more effective than taping songs off the radio with your cassette recorder.',
+      imageUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/1/1c/Kazaa_%28logo%29.png',
+      price: 30
+    }),
+    Product.create({
+      name: 'AIM',
+      description:
+        'Where true friendships are forged and maintained, away from the pressures of talking IRL.',
+      imageUrl:
+        'https://crackberry.com/sites/crackberry.com/files/u7860/aim_logo.jpg',
+      price: 35
+    }),
+    Product.create({
+      name: 'LiveJournal',
+      description:
+        'A safe place to share all your thoughts and feelings - on the web!',
+      imageUrl:
+        'https://upload.wikimedia.org/wikipedia/en/6/6c/Livejournal-logo.png',
+      price: 10
     })
   ])
 
