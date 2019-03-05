@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth, editUser} from '../store'
+import {Link} from 'react-router-dom'
 
 /**
  * COMPONENT
@@ -63,23 +64,44 @@ class AuthForm extends Component {
                 <label htmlFor="firstName">
                   <small>First Name</small>
                 </label>
-                <input
-                  name="firstName"
-                  type="text"
-                  value={firstName}
-                  onChange={this.handleChange}
-                />
+                {isLoggedIn ? (
+                  <input
+                    name="firstName"
+                    type="text"
+                    value={firstName}
+                    onChange={this.handleChange}
+                  />
+                ) : (
+                  <input
+                    name="firstName"
+                    type="text"
+                    value={firstName}
+                    onChange={this.handleChange}
+                    required
+                  />
+                )}
               </div>
               <div>
                 <label htmlFor="lastName">
                   <small>Last Name</small>
                 </label>
-                <input
-                  name="lastName"
-                  type="text"
-                  value={lastName}
-                  onChange={this.handleChange}
-                />
+                {isLoggedIn ? (
+                  <input
+                    name="lastName"
+                    type="text"
+                    value={lastName}
+                    onChange={this.handleChange}
+                  />
+                ) : (
+                  <input
+                    name="lastName"
+                    type="text"
+                    value={lastName}
+                    onChange={this.handleChange}
+                    // label="Required Field"
+                    required
+                  />
+                )}
               </div>
               <div>
                 <label htmlFor="phone">
@@ -87,9 +109,10 @@ class AuthForm extends Component {
                 </label>
                 <input
                   name="phone"
-                  type="text"
-                  placeholder="(xxx) xxx-xxxx"
-                  pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}"
+                  type="tel"
+                  placeholder="xxx-xxx-xxxx"
+                  pattern="^[0-9]*$"
+                  title="Phone may only contain numbers"
                   value={phone}
                   onChange={this.handleChange}
                 />
@@ -102,7 +125,7 @@ class AuthForm extends Component {
             </label>
             <input
               name="email"
-              type="text"
+              type="email"
               value={email}
               onChange={this.handleChange}
             />
@@ -111,12 +134,22 @@ class AuthForm extends Component {
             <label htmlFor="password">
               <small>Password</small>
             </label>
-            <input
-              name="password"
-              type="password"
-              value={password}
-              onChange={this.handleChange}
-            />
+            {isLoggedIn ? (
+              <input
+                name="password"
+                type="password"
+                value={password}
+                onChange={this.handleChange}
+              />
+            ) : (
+              <input
+                name="password"
+                type="password"
+                value={password}
+                onChange={this.handleChange}
+                required
+              />
+            )}
           </div>
           <div>
             <button type="submit">{buttonText}</button>
@@ -124,7 +157,19 @@ class AuthForm extends Component {
           </div>
           {error && error.response && <div> {error.response.data} </div>}
         </form>
-        {!isLoggedIn && <a href="/auth/google">{headerText} with Google</a>}
+
+        {!isLoggedIn && (
+          <div>
+            {headerText === 'Login' && (
+              <div>
+                Don’t have a account? <br />
+                <Link to="/signup">Sigh up here!</Link>
+              </div>
+            )}
+            <br />
+            <a href="/auth/google">{headerText} with Google</a>
+          </div>
+        )}
       </div>
     )
   }
