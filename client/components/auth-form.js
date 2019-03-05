@@ -44,19 +44,8 @@ class AuthForm extends Component {
       this.props.editUser({firstName, lastName, email, password, phone})
     } else if (formName === 'signup') {
       this.props.auth(email, password, formName, firstName, lastName, phone)
-      alert('Reciept was sent to your email')
-      var x = document.getElementById('popUp')
-      x.className = 'show'
-      setTimeout(function() {
-        x.className = x.className.replace('show', '')
-      }, 3000)
     } else {
       this.props.auth(email, password, formName)
-      var x = document.getElementById('popUp')
-      x.className = 'show'
-      setTimeout(function() {
-        x.className = x.className.replace('show', '')
-      }, 3000)
     }
   }
 
