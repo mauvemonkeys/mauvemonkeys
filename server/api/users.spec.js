@@ -66,16 +66,16 @@ describe('User routes', () => {
       const res = await request(app)
         .post('/api/users')
         .send(newUser)
-        .expect(200)
+        .expect(403)
 
-      expect(res.body).to.be.an('object')
-      expect(res.body.email).to.be.equal(newUser.email)
-      expect(res.body).to.deep.include({
-        email: 'boss@gmail.com',
-        firstName: 'Dog',
-        lastName: 'Chao',
-        phone: '99999999'
-      })
+      // expect(res.body).to.be.an('object')
+      // expect(res.body.email).to.be.equal(newUser.email)
+      // expect(res.body).to.deep.include({
+      //   email: 'boss@gmail.com',
+      //   firstName: 'Dog',
+      //   lastName: 'Chao',
+      //   phone: '99999999'
+      // })
     })
   })
 })
