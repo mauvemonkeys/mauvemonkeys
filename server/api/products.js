@@ -24,13 +24,21 @@ router.get('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   try {
     const product = await Product.findById(req.params.id)
+    console.log('hit')
     if (!product) {
       let err = new Error('Product not found')
       err.status = 404
       return next(err)
     }
     const {id, name, description, imageUrl, price} = product.dataValues
-    res.send({id, name, description, imageUrl, price})
+    const editedProduct = {
+      id,
+      name,
+      description,
+      imageUrl,
+      price
+    }
+    res.send(editedProduct)
   } catch (err) {
     next(err)
   }

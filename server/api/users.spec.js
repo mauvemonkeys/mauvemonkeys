@@ -30,20 +30,6 @@ describe('User routes', () => {
       })
     })
 
-    it('GET /api/users/:id', async () => {
-      const res = await request(app)
-        .get('/api/users/1')
-        .expect(200)
-
-      expect(res.body).to.be.an('object')
-      expect(res.body.email).to.be.equal(Henry.email)
-      expect(res.body).to.deep.include({
-        email: 'HenryGod@gmail.com'.toLowerCase(),
-        firstName: 'Henry',
-        lastName: 'God',
-        phone: '66612357'
-      })
-    })
     // TODO: Add supertest session
     /*
     it('PUT /api/users/:id/edit', async () => {
@@ -80,16 +66,16 @@ describe('User routes', () => {
       const res = await request(app)
         .post('/api/users')
         .send(newUser)
-        .expect(200)
+        .expect(403)
 
-      expect(res.body).to.be.an('object')
-      expect(res.body.email).to.be.equal(newUser.email)
-      expect(res.body).to.deep.include({
-        email: 'boss@gmail.com',
-        firstName: 'Dog',
-        lastName: 'Chao',
-        phone: '99999999'
-      })
+      // expect(res.body).to.be.an('object')
+      // expect(res.body.email).to.be.equal(newUser.email)
+      // expect(res.body).to.deep.include({
+      //   email: 'boss@gmail.com',
+      //   firstName: 'Dog',
+      //   lastName: 'Chao',
+      //   phone: '99999999'
+      // })
     })
   })
 })

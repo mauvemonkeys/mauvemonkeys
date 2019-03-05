@@ -1,7 +1,7 @@
 {
   "name": "stickr",
   "version": "1.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description": "Stickr is a full-stack ecommerce project developed at Fullstack Academy which utilizes the NERDS stack (Node.js, Express, React, Databases using SQL).",
   "engines": {
     "node": ">= 7.0.0"
   },
