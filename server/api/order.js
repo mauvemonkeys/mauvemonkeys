@@ -97,6 +97,14 @@ router.put('/:userId/checkout', async (req, res, next) => {
         where: {userId: req.params.userId, orderStatus: false}
       }
     )
+    const orders = await Order.findAll({
+      where: {userId: req.params.userId},
+      include: [{model: Product}]
+    })
+    orders.map(order => {
+      order.orderPrice = order.product.price
+      order.save()
+    })
     res.sendStatus(200)
   } catch (err) {
     next(err)
