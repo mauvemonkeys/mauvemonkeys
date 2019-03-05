@@ -75,7 +75,6 @@ class SingleProduct extends Component {
         </div>
         <div className="row-gap">${price}</div>
         <div className="row-gap">{description}</div>
-
         <div id="productQty">
           <button type="button" onClick={() => this.decrement()}>
             -
@@ -89,11 +88,9 @@ class SingleProduct extends Component {
         <button type="submit" onClick={this.handleSubmit}>
           Add to cart
         </button>
-
         <div id="popUp">
           {this.state.itemQuantity} {name} added to cart !
         </div>
-
         <br />
         {this.props.isAdmin && (
           <button
@@ -103,7 +100,6 @@ class SingleProduct extends Component {
             Edit
           </button>
         )}
-
       </div>
     )
   }

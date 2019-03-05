@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User, Product} = require('../db/models')
+const {Product} = require('../db/models')
 module.exports = router
 
 router.get('/products', async (req, res, next) => {
