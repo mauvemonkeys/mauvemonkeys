@@ -100,7 +100,6 @@ router.post('/:userId/charge', async (req, res, next) => {
     return total + line.itemQuantity * Number(line.product.price)
   }, 0)
 
-  //try {
   let {status} = await stripe.charges.create({
     amount: orderTotal * 100,
     currency: 'usd',
@@ -109,9 +108,6 @@ router.post('/:userId/charge', async (req, res, next) => {
   })
 
   res.json({status})
-  //} catch (err) {
-  //res.sendStatus(500)
-  //}
 })
 
 //Checkout Items

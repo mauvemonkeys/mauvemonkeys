@@ -23,9 +23,9 @@ export class History extends Component {
     return (
       <div>
         <h1>Order History</h1>
-        <div>
+        <div id="history">
           {this.state.history.map(item => (
-            <div key={item.id}>
+            <div key={item.id} className="history-item">
               <div>Product :{item.product.name}</div>
               <div>Quantity : {item.itemQuantity}</div>
               <div>Total : {item.total}</div>
