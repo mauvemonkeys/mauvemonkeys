@@ -7,13 +7,13 @@ const createOptions = () => {
     style: {
       base: {
         fontSize: '16px',
-        color: '#495057',
+        color: '#000000',
         fontFamily:
           '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
         '::placeholder': {}
       },
       invalid: {
-        color: '#9e2146'
+        color: '#00000'
       }
     }
   }
@@ -26,22 +26,37 @@ class CheckoutForm extends Component {
   }
 
   async handleSubmit() {
-    let {token} = await this.props.stripe.createToken({name: 'Ross S'})
-    console.log(token)
-    let response = await axios.post(
-      `/api/orders/${this.props.user.id}/charge`,
-      {token: token.id}
-    )
+    let {token} = await this.props.stripe.createToken({
+      name: this.props.user.firstName + ' ' + this.props.user.lastName
+    })
 
-    if (response.ok) console.log('Purchase Complete!')
+    await axios.post(`/api/orders/${this.props.user.id}/charge`, {
+      token: token.id
+    })
+
+    await this.props.handleClick()
   }
+
   render() {
     return (
       <div className="checkout">
         <div
-          style={{paddingLeft: '5px', paddingRight: '5px', background: 'white'}}
+          style={{
+            paddingLeft: '65px',
+            paddingRight: '65px',
+            textAlign: 'center'
+          }}
         >
-          <CardElement {...createOptions()} />
+          <div
+            style={{
+              background: 'white',
+              border: '1px solid black',
+              borderRadius: '5px',
+              paddingLeft: '5px'
+            }}
+          >
+            <CardElement {...createOptions()} />
+          </div>
         </div>
         <button type="button" onClick={this.handleSubmit}>
           Pay

@@ -39,35 +39,61 @@ class CartLine extends Component {
     return (
       <div>
         <li>
-          <div className="cart-line">
-            <h4>{cartLine.product && cartLine.product.name}</h4>
-            <span style={{paddingRight: '5px'}}>
-              Price: {cartLine.product && cartLine.product.price}
-            </span>
-            <span style={{paddingRight: '5px'}}>
-              Quantity:{' '}
-              <input
-                onChange={evt => this.handleChange(Number(evt.target.value))}
-                type="number"
-                min="1"
-                step="1"
-                id="itemQuantity"
-                name="itemQuantity"
-                value={cartLine.itemQuantity}
-              />
-            </span>
-            <span style={{paddingRight: '5px'}}>
-              Total:{' '}
-              {cartLine.product &&
-                cartLine.itemQuantity * cartLine.product.price}
-            </span>
+          <div
+            className="cart-line"
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              marginBottom: '10px'
+            }}
+          >
+            <div
+              style={{
+                width: '25%',
+                fontSize: '20px',
+                borderBottom: '1px solid black'
+              }}
+            >
+              {cartLine.product && cartLine.product.name}
+            </div>
+            <div style={{width: '15%', borderBottom: '1px solid black'}}>
+              <p style={{marginTop: 0}}>Price</p>
+              <p>${cartLine.product && cartLine.product.price}</p>
+            </div>
+            <div style={{width: '15%', borderBottom: '1px solid black'}}>
+              <p style={{marginTop: 0}}>Quantity</p>
+              <p>
+                <input
+                  onChange={evt => this.handleChange(Number(evt.target.value))}
+                  type="number"
+                  min="1"
+                  step="1"
+                  id="itemQuantity"
+                  name="itemQuantity"
+                  value={cartLine.itemQuantity}
+                  style={{width: '25px'}}
+                />
+              </p>
+            </div>
+            <div style={{width: '15%', borderBottom: '1px solid black'}}>
+              <p style={{marginTop: 0}}>Total</p>
+              <p>
+                ${cartLine.product &&
+                  cartLine.itemQuantity * cartLine.product.price}
+              </p>
+            </div>
 
-            <span
-              style={{color: 'red', marginLeft: '20px'}}
+            <div
+              style={{
+                width: '5%',
+                borderBottom: '1px solid black',
+                color: 'red',
+                cursor: 'pointer'
+              }}
               onClick={this.handleDelete}
             >
               X
-            </span>
+            </div>
           </div>
         </li>
       </div>
