@@ -31,7 +31,11 @@ router.get('/:id', async (req, res, next) => {
     }
     res.send(product)
   } catch (err) {
-    next(err)
+    if (err.message.includes('invalid input')) {
+      let newErr = new Error('Product not found')
+      newErr.status = 404
+      next(newErr)
+    }
   }
 })
 

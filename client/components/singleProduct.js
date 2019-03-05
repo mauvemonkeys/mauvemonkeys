@@ -5,10 +5,13 @@ import {updateItemQuantity, updateItemQuantityLocal} from '../store'
 import {gotProductFromServer} from '../store/product'
 
 class SingleProduct extends Component {
-  constructor() {
-    super()
+  _isMounted = false
+
+  constructor(props) {
+    super(props)
     this.state = {
       product: {},
+      error: '',
       itemQuantity: 1
     }
 
@@ -19,9 +22,20 @@ class SingleProduct extends Component {
   }
 
   async componentDidMount() {
-    const productId = this.props.match.params.productId
-    const {data: product} = await axios.get(`/api/products/${productId}`)
-    this.setState({product})
+    this._isMounted = true
+    try {
+      const productId = this.props.match.params.productId
+      const {data: product} = await axios.get(`/api/products/${productId}`)
+      if (this._isMounted) {
+        this.setState({product})
+      }
+    } catch (err) {
+      if (err.response.data === 'Product not found') {
+        if (this._isMounted) {
+          this.setState({error: err.response.data})
+        }
+      }
+    }
   }
 
   handleSubmit(evt) {
@@ -65,47 +79,60 @@ class SingleProduct extends Component {
 
   render() {
     const {id, name, imageUrl, price, description} = this.state.product
+    const error = this.state.error
     return (
-      <div className="single-product-div">
-        <div className="row-gap">
-          <h1>{name}</h1>
-        </div>
-        <div className="row-gap">
-          <img src={imageUrl} />
-        </div>
-        <div className="row-gap">${price}</div>
-        <div className="row-gap">{description}</div>
+      <div>
+        {error ? (
+          <div className="isa_error">
+            <i className="fa fa-times-circle" />
+            <span style={{marginLeft: '7px'}}>{error}</span>
+          </div>
+        ) : (
+          <div className="single-product-div">
+            <div className="row-gap">
+              <h1>{name}</h1>
+            </div>
+            <div className="row-gap">
+              <img src={imageUrl} />
+            </div>
+            <div className="row-gap">${price}</div>
+            <div className="row-gap">{description}</div>
 
-        <div id="productQty">
-          <button type="button" onClick={() => this.decrement()}>
-            -
-          </button>
-          <div>{this.state.itemQuantity}</div>
-          <button type="button" onClick={() => this.increment()}>
-            +
-          </button>
-        </div>
-        <br />
-        <button type="submit" onClick={this.handleSubmit}>
-          Add to cart
-        </button>
+            <div id="productQty">
+              <button type="button" onClick={() => this.decrement()}>
+                -
+              </button>
+              <div>{this.state.itemQuantity}</div>
+              <button type="button" onClick={() => this.increment()}>
+                +
+              </button>
+            </div>
+            <br />
+            <button type="submit" onClick={this.handleSubmit}>
+              Add to cart
+            </button>
 
-        <div id="popUp">
-          {this.state.itemQuantity} {name} added to cart !
-        </div>
+            <div id="popUp">
+              {this.state.itemQuantity} {name} added to cart !
+            </div>
 
-        <br />
-        {this.props.isAdmin && (
-          <button
-            type="submit"
-            onClick={() => this.props.gotProductFromServer(id)}
-          >
-            Edit
-          </button>
+            <br />
+            {this.props.isAdmin && (
+              <button
+                type="button"
+                onClick={() => this.props.gotProductFromServer(id)}
+              >
+                Edit
+              </button>
+            )}
+          </div>
         )}
-
       </div>
     )
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false
   }
 }
 

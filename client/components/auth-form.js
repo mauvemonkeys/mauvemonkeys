@@ -56,6 +56,14 @@ class AuthForm extends Component {
     const {firstName, lastName, phone, email, password} = this.state
     return (
       <div id="form">
+        {error && (
+          <div className="isa_error">
+            <i className="fa fa-times-circle" />
+            <span style={{marginLeft: '7px'}}>
+              {error.response && error.response.data}
+            </span>
+          </div>
+        )}
         <h3>{headerText}</h3>
         <form onSubmit={this.handleSubmit}>
           {['signup', 'editUser'].includes(name) && (
@@ -155,7 +163,6 @@ class AuthForm extends Component {
             <button type="submit">{buttonText}</button>
             <div id="popUp">You are login now !</div>
           </div>
-          {error && error.response && <div> {error.response.data} </div>}
         </form>
 
         {!isLoggedIn && (
@@ -163,7 +170,7 @@ class AuthForm extends Component {
             {headerText === 'Login' && (
               <div>
                 Don’t have a account? <br />
-                <Link to="/signup">Sigh up here!</Link>
+                <Link to="/signup">Sign up here!</Link>
               </div>
             )}
             <br />
@@ -222,6 +229,5 @@ export const EditUser = connect(mapEditUser, {editUser})(AuthForm)
  * PROP TYPES
  */
 AuthForm.propTypes = {
-  name: PropTypes.string.isRequired,
-  error: PropTypes.object
+  name: PropTypes.string.isRequired
 }

@@ -2,11 +2,11 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import {logout} from '../store'
+import {logout, clearUserError} from '../store'
 
 class Navbar extends Component {
   render() {
-    const {isLoggedIn, handleClick, cart} = this.props
+    const {isLoggedIn, handleClick, cart, clearUserError} = this.props
     return (
       <div className="navbar">
         <div className="logo-div">
@@ -38,10 +38,10 @@ class Navbar extends Component {
               <Link to="/cart" className="nav-links">
                 Cart ({cart.length})
               </Link>
-              <Link to="/login" className="nav-links">
+              <Link to="/login" onClick={clearUserError} className="nav-links">
                 Login
               </Link>
-              <Link to="/signup" className="nav-links">
+              <Link to="/signup" onClick={clearUserError} className="nav-links">
                 Sign Up
               </Link>
             </div>
@@ -67,6 +67,9 @@ const mapDispatch = dispatch => {
   return {
     handleClick() {
       dispatch(logout())
+    },
+    clearUserError() {
+      dispatch(clearUserError())
     }
   }
 }

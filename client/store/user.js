@@ -8,6 +8,7 @@ import {getCart, getCartLocal, setCart} from './cart'
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
 const UPDATE_USER = 'UPDATE_USER'
+const CLEAR_USER_ERROR = 'CLEAR_USER_ERROR'
 
 /**
  * INITIAL STATE
@@ -20,6 +21,7 @@ const defaultUser = {}
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
 const updateUser = user => ({type: UPDATE_USER, user})
+export const clearUserError = () => ({type: CLEAR_USER_ERROR})
 
 /**
  * THUNK CREATORS
@@ -115,6 +117,11 @@ export default function(state = defaultUser, action) {
         }
       }
       return {...state, ...updatedUser}
+    case CLEAR_USER_ERROR:
+      if (state.error) {
+        return {...state, error: ''}
+      }
+      return state
     default:
       return state
   }

@@ -3,6 +3,9 @@ font-family: 'ZCOOL QingKe HuangYou', cursive;
 font-family: 'Fugaz One', cursive;
 font-family: 'Inconsolata', monospace;
 */
+
+@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
 h1 {
   font-family: 'Fugaz One', cursive;
   font-size: 3em;
@@ -161,6 +164,20 @@ button:hover {
 
 .nav-links:hover {
   background-color: rgb(199, 116, 27);
+}
+
+.isa_info,
+.isa_success,
+.isa_warning,
+.isa_error {
+  margin: 0 auto;
+  padding: 12px;
+  width: 40%;
+}
+
+.isa_error {
+  color: #d8000c;
+  background-color: #ffd2d2;
 }
 
 @media (max-width: 728px) {

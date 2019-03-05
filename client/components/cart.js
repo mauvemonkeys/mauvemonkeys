@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import CartLine from './cartLine'
 import {connect} from 'react-redux'
 import axios from 'axios'
-import {clearCart} from '../store/cart'
+import {clearCart, clearUserError} from '../store'
 import {Elements, StripeProvider} from 'react-stripe-elements'
 import CheckoutForm from './checkoutForm'
 
@@ -21,7 +21,7 @@ class Cart extends Component {
   }
 
   render() {
-    const {cart, user, history} = this.props
+    const {cart, user, history, clearUserError} = this.props
 
     return (
       <div id="cart" style={{paddingTop: '10px', paddingBottom: '10px'}}>
@@ -54,7 +54,10 @@ class Cart extends Component {
               <button
                 style={{marginBottom: '10px'}}
                 type="button"
-                onClick={() => history.push('/login')}
+                onClick={() => {
+                  clearUserError()
+                  history.push('/login')
+                }}
               >
                 Checkout
               </button>
@@ -74,7 +77,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  checkoutOrders: () => dispatch(clearCart())
+  checkoutOrders: () => dispatch(clearCart()),
+  clearUserError: () => dispatch(clearUserError())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart)
