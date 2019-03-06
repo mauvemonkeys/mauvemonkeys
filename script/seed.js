@@ -51,7 +51,7 @@ async function seed() {
     Product.create({
       name: 'Internet Explorer',
       description: 'The most forced way to access the world wide web',
-      imageUrl: 'https://pic.clubic.com/v1/images/1506750/raw',
+      imageUrl: 'http://cdn.hasshe.com/img/s/5ZzYDyMx3zfmBbeoiRsaUAHaH0.jpg',
       price: 15
     }),
     Product.create({

@@ -43,6 +43,19 @@ export const setCart = () => async (dispatch, getState) => {
   }
 }
 
+export const setCartLogin = () => async (dispatch, getState) => {
+  try {
+    const userId = getState().user.id
+    const res = await axios.post(`/api/orders/${userId}/reconcile`, {
+      cart: getState().cart
+    })
+    const cart = res.data
+    dispatch(gotCart(cart))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 export const getCart = () => async (dispatch, getState) => {
   try {
     const userId = getState().user.id
