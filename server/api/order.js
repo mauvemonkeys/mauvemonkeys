@@ -26,18 +26,56 @@ router.get('/:userId', async (req, res, next) => {
   }
 })
 
-router.post('/:userId', async (req, res, next) => {
+router.post('/:userId/reconcile', async (req, res, next) => {
   try {
     const {cart} = req.body
-    const orderPromises = []
-    cart.forEach(cl => {
-      orderPromises.push(
-        Order.create({
+
+    const orderLines = await Order.findAll({
+      where: {userId: req.params.userId, orderStatus: false},
+      include: [{model: Product}]
+    })
+
+    const orderPromises = cart.map(cl => {
+      const matchingUserCartProduct = orderLines.find(
+        ol => cl.productId === ol.productId
+      )
+      if (matchingUserCartProduct) {
+        if (cl.itemQuantity > matchingUserCartProduct.itemQuantity) {
+          matchingUserCartProduct.itemQuantity = cl.itemQuantity
+          return matchingUserCartProduct.save()
+        }
+        return matchingUserCartProduct
+      } else {
+        return Order.create({
           productId: cl.productId,
           userId: req.params.userId,
           itemQuantity: cl.itemQuantity
         })
-      )
+      }
+    })
+
+    await Promise.all(orderPromises)
+
+    const cartWithProductDetail = await Order.findAll({
+      where: {userId: req.params.userId, orderStatus: false},
+      include: [{model: Product}]
+    })
+
+    res.send(cartWithProductDetail)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.post('/:userId', async (req, res, next) => {
+  try {
+    const {cart} = req.body
+    const orderPromises = cart.map(cl => {
+      Order.create({
+        productId: cl.productId,
+        userId: req.params.userId,
+        itemQuantity: cl.itemQuantity
+      })
     })
 
     await Promise.all(orderPromises)

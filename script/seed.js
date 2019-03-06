@@ -51,8 +51,7 @@ async function seed() {
     Product.create({
       name: 'Internet Explorer',
       description: 'The most forced way to access the world wide web',
-      imageUrl:
-        'https://vignette.wikia.nocookie.net/logopedia/images/0/03/Internet_Explorer_5_logo.png/revision/latest/scale-to-width-down/200?cb=20180319023708',
+      imageUrl: 'http://cdn.hasshe.com/img/s/5ZzYDyMx3zfmBbeoiRsaUAHaH0.jpg',
       price: 15
     }),
     Product.create({
@@ -83,7 +82,8 @@ async function seed() {
       name: 'LiveJournal',
       description:
         'A safe place to share all your thoughts and feelings - on the web!',
-      imageUrl: 'http://cdn.hasshe.com/img/s/5ZzYDyMx3zfmBbeoiRsaUAHaH0.jpg',
+      imageUrl:
+        'https://upload.wikimedia.org/wikipedia/en/6/6c/Livejournal-logo.png',
       price: 10
     })
   ])
