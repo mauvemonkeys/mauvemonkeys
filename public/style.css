@@ -80,11 +80,13 @@ img {
   display: flex;
   flex-wrap: wrap;
   background-color: rgba(250, 235, 215, 0.338);
-  width: 70%;
   margin: 0 auto;
-  margin-top: 90px;
+  margin-top: 30px;
   border-radius: 5px;
   justify-content: center;
+  padding-left: 2em;
+  width: 60%;
+
 }
 
 #backgroundimg {
@@ -93,6 +95,7 @@ img {
   border-radius: 50%;
   background-color: white;
 }
+
 
 #backgroundimg2 {
   height: 160px;
@@ -104,6 +107,8 @@ img {
   justify-content: center;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: auto;
+  margin-top: auto;
 }
 
 .single-product-div,
