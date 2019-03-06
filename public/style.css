@@ -86,7 +86,6 @@ img {
   justify-content: center;
   padding-left: 2em;
   width: 60%;
-
 }
 
 #backgroundimg {
@@ -96,8 +95,7 @@ img {
   background-color: white;
 }
 
-
-#backgroundimg2 {
+#backgrounding2 {
   height: 160px;
   width: 160px;
   border-radius: 50%;
