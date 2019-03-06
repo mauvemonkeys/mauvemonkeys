@@ -1,7 +1,10 @@
 const express = require('express')
 const router = express.Router()
 const {Product, Order} = require('../db/models')
-const stripe = require('stripe')('sk_test_PpLkvdYD7mbL5j0o8QWpRtST')
+
+if (process.env.NODE_ENV !== 'production') require('../../secrets')
+
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 
 module.exports = router
 
