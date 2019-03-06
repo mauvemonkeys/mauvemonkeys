@@ -1,6 +1,6 @@
 import axios from 'axios'
 import history from '../history'
-import {getCart, getCartLocal, setCart} from './cart'
+import {setCartLogin, getCartLocal, setCart} from './cart'
 
 /**
  * ACTION TYPES
@@ -63,7 +63,7 @@ export const auth = (
     if (method === 'signup') {
       dispatch(setCart())
     } else if (method === 'login') {
-      dispatch(getCart())
+      dispatch(setCartLogin())
     }
     history.push('/products')
   } catch (dispatchOrHistoryErr) {
