@@ -85,6 +85,13 @@ async function seed() {
       imageUrl:
         'https://upload.wikimedia.org/wikipedia/en/6/6c/Livejournal-logo.png',
       price: 10
+    }),
+    Product.create({
+      name: 'Apple',
+      description: 'Classics never die- Rainbows are forever!',
+      imageUrl:
+        'https://images.hgmsites.net/lrg/vintage-apple-logo_100609697_l.jpg',
+      price: 25
     })
   ])
 
