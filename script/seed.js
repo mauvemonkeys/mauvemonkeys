@@ -83,8 +83,7 @@ async function seed() {
       name: 'LiveJournal',
       description:
         'A safe place to share all your thoughts and feelings - on the web!',
-      imageUrl:
-        'https://upload.wikimedia.org/wikipedia/en/6/6c/Livejournal-logo.png',
+      imageUrl: 'http://cdn.hasshe.com/img/s/5ZzYDyMx3zfmBbeoiRsaUAHaH0.jpg',
       price: 10
     })
   ])
