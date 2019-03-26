@@ -1,6 +1,6 @@
 # Stickr
 
-[![Build Status](https://travis-ci.org/mauvemonkeys/mauvemonkeys.svg?branch=master)](https://travis-ci.org/mauvemonkeys/mauvemonkeys) [![npm version](https://badge.fury.io/js/npm.svg)](https://badge.fury.io/js/npm) [![Waffle.io - Columns and their card count](https://badge.waffle.io/mauvemonkeys/mauvemonkeys.svg?columns=done)](https://waffle.io/mauvemonkeys/mauvemonkeys)
+[![Build Status](https://travis-ci.org/mauvemonkeys/Stickr.svg?branch=master)](https://travis-ci.org/mauvemonkeys/Stickr) [![npm version](https://badge.fury.io/js/npm.svg)](https://badge.fury.io/js/npm) [![Waffle.io - Columns and their card count](https://badge.waffle.io/mauvemonkeys/mauvemonkeys.svg?columns=done)](https://waffle.io/mauvemonkeys/mauvemonkeys)
 
 _For all your throwback tech sticker needs_: Your one stop shop for laptop mounted nostalgia flair!
 
